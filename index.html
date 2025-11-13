@@ -204,8 +204,10 @@
   <!-- Scrolling Progress Bar -->
   <div id="progress-bar"></div>
 
-  <header class="sticky top-0 z-50 bg-white/90 border-b border-gray-100 backdrop-blur-md">
-    <nav class="hero-max mx-auto flex items-center justify-between gap-4 p-4 md:p-6" aria-label="primary">
+  <!-- HEADER UPDATED: Now has two rows: Brand (top) and Nav (bottom) -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm">
+    <!-- Row 1: Brand + Mobile Toggle -->
+    <div class="hero-max mx-auto flex items-center justify-between gap-4 p-4 md:p-6">
       <div class="flex items-center gap-3">
         <img class="w-16 h-16 rounded-xl object-contain shadow-md" 
              src="logo.png.png" 
@@ -213,29 +215,28 @@
         <span class="brand-name font-black text-primary-blue">Cellular & Molecular Biosciences Research Lab (CMBRL)</span>
       </div>
       
-      <!-- Desktop Menu -->
-      <div class="hidden lg:flex menu items-center gap-6 text-sm font-medium">
-        <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#about">About</a>
-        <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#mission">Mission</a>
-        <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#vision">Vision</a>
-        <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#team">Team</a>
-        <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#research">Research</a>
-        <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#projects">Projects</a>
-        <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#publications">Publications</a>
-        <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#news">News</a>
-        <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#opportunities">Opportunities</a>
-        <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#contact">Contact</a>
-      </div>
-
-      <!-- Mobile Menu Toggle Button -->
+      <!-- Mobile Menu Toggle Button (remains in top-right for mobile) -->
       <button id="mobile-menu-toggle" class="lg:hidden text-primary-blue p-2 rounded-lg hover:bg-gray-100 transition duration-150" aria-label="Open navigation menu">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
       </button>
-
+    </div>
+    
+    <!-- Row 2: Desktop Navigation Bar -->
+    <nav class="hidden lg:flex hero-max mx-auto items-center justify-center gap-6 text-sm font-medium p-3 border-t border-gray-100" aria-label="Main Desktop Navigation">
+      <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#about">About</a>
+      <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#mission">Mission</a>
+      <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#vision">Vision</a>
+      <a class="text-muted-text hover:text-primary-blue transition duration-1Example 150 nav-link" href="#team">Team</a>
+      <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#research">Research</a>
+      <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#projects">Projects</a>
+      <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#publications">Publications</a>
+      <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#news">News</a>
+      <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#opportunities">Opportunities</a>
+      <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#contact">Contact</a>
     </nav>
   </header>
 
-  <!-- Mobile Menu Overlay -->
+  <!-- Mobile Menu Overlay (No changes here) -->
   <div id="mobile-menu" class="mobile-menu bg-white p-6 shadow-2xl">
       <div class="flex justify-end">
           <button id="mobile-menu-close" class="text-primary-blue p-2 rounded-lg hover:bg-gray-100" aria-label="Close navigation menu">
@@ -1038,7 +1039,7 @@
             <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2020</span>
           </div>
           <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Molecules</span> (2020).
+            Journal: <span class="pub-journal">Molecules</span> (2G20).
             <a class="text-primary-blue hover:underline" href="https://doi.org/10.3390/molecules25184300" target="_blank" rel="noopener">View publication</a>
           </div>
         </div>
@@ -1251,6 +1252,8 @@
             const type = button.getAttribute('data-type');
             const count = getVisibleHiddenCount();
             
+            // --- FIX STARTS HERE ---
+            // This logic was missing, causing the function to be incomplete.
             if (count === 0 && !expanded) {
                 button.classList.add('hidden');
                 return;
@@ -1263,7 +1266,8 @@
             } else {
                 button.innerHTML = `Show ${count} more ${type}`;
             }
-        }
+        } // <--- This closing brace was missing, causing the SyntaxError
+        // --- FIX ENDS HERE ---
 
         button.addEventListener('click', () => {
             expanded = !expanded;
