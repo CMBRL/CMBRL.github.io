@@ -2,1536 +2,794 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cellular & Molecular Biosciences Research Laboratory — Cairo University</title>
   <meta name="description" content="Cellular & Molecular Biosciences Research Laboratory (CMBRL), Cairo University — cancer biology, biomarkers, breast cancer, translational research." />
-  <!-- Load Tailwind CSS -->
+  <meta name="theme-color" content="#083344" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Configure Tailwind to use Inter font and define custom colors -->
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Ubuntu', 'Arial', 'sans-serif'],
+            sans: ['Source Sans 3', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Arial', 'sans-serif'],
           },
           colors: {
-            'primary-blue': '#0077b6', // The original accent color
-            'light-bg': '#e6f3ff', // The original background color
-            'dark-text': '#0a1a2f', // The original primary text color
-            'muted-text': '#44546a', // The original secondary text color
-            'noise-color': 'rgba(0, 119, 182, 0.05)', // Very subtle blue for background texture
+            ink: '#0b1f2a',
+            muted: '#506171',
+            brand: {
+              50: '#ecfeff',
+              100: '#cffafe',
+              200: '#a5f3fc',
+              500: '#06b6d4',
+              600: '#0891b2',
+              700: '#0e7490',
+              800: '#155e75',
+              900: '#083344'
+            },
+            mint: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857'
+            },
+            amber: {
+              50: '#fffbeb',
+              100: '#fef3c7',
+              500: '#f59e0b',
+              700: '#b45309'
+            },
+            rose: {
+              50: '#fff1f2',
+              100: '#ffe4e6',
+              500: '#f43f5e',
+              700: '#be123c'
+            },
+            aqua: '#22d3ee'
+          },
+          boxShadow: {
+            soft: '0 24px 80px rgba(8, 51, 68, 0.22)',
+            card: '0 14px 42px rgba(8, 35, 51, 0.10)'
           },
           keyframes: {
-            noise: {
-              '0%': { transform: 'translate(0, 0)' },
-              '10%': { transform: 'translate(-5%, 10%)' },
-              '20%': { transform: 'translate(-15%, 5%)' },
-              '30%': { transform: 'translate(7%, -3%)' },
-              '40%': { transform: 'translate(-5%, 12%)' },
-              '50%': { transform: 'translate(10%, 5%)' },
-              '60%': { transform: 'translate(-10%, 2%)' },
-              '70%': { transform: 'translate(3%, -8%)' },
-              '80%': { transform: 'translate(-12%, 15%)' },
-              '90%': { transform: 'translate(15%, 5%)' },
-              '100%': { transform: 'translate(0, 0)' },
-            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' }
+            }
           },
-          animation: {
-            noise: 'noise 30s infinite alternate',
-          },
-        },
-      },
+          animation: { float: 'float 7s ease-in-out infinite' }
+        }
+      }
     }
   </script>
   <style>
-    /* Ensure Inter font is used */
-    body { font-family: 'Inter', sans-serif; }
-
-    /* Custom styles based on original look */
-    .brand-name { font-size: clamp(16px, 2.2vw, 22px); }
-    .h1 { font-size: clamp(28px, 4vw, 40px); }
-    .hero-max { max-width: 1100px; }
-    
-    /* 1. Microscopic Background Texture (The "Special Experience") */
+    :root {
+      /*
+        CMBRL biomedical palette
+        - Lab Navy: institutional authority and high contrast
+        - Molecular Teal/Cyan: cellular and molecular science identity
+        - Cell Mint: growth, biology, discovery, collaboration
+        - Diagnostic Amber: selective highlight color only
+        - Soft Ice: clean scientific background and readable surfaces
+      */
+      --header-h: 92px;
+      --navy-950: #06141d;
+      --navy-900: #082333;
+      --brand-900: #083344;
+      --brand-800: #155e75;
+      --brand-700: #0e7490;
+      --brand-600: #0891b2;
+      --cyan-500: #06b6d4;
+      --cyan-200: #a5f3fc;
+      --mint-500: #10b981;
+      --mint-100: #d1fae5;
+      --amber-500: #f59e0b;
+      --amber-50: #fffbeb;
+      --rose-500: #f43f5e;
+      --rose-50: #fff1f2;
+      --ice-50: #f5fcfd;
+      --ice-100: #e7f8fb;
+      --ink: #0b1f2a;
+      --muted: #506171;
+      --surface: rgba(255,255,255,.88);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-padding-top: calc(var(--header-h) + 20px); }
     body {
-        position: relative;
-        overflow-x: hidden;
+      font-family: 'Source Sans 3', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--ink);
+      font-size: clamp(16px, 0.45vw + 15px, 18px);
+      line-height: 1.68;
+      letter-spacing: .005em;
+      font-weight: 400;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background:
+        radial-gradient(circle at 10% 8%, rgba(6, 182, 212, .18), transparent 32rem),
+        radial-gradient(circle at 88% 10%, rgba(16, 185, 129, .14), transparent 30rem),
+        radial-gradient(circle at 52% 100%, rgba(14, 116, 144, .12), transparent 34rem),
+        linear-gradient(180deg, #f8feff 0%, #eefbfc 44%, #f8fcfb 100%);
+      overflow-x: hidden;
     }
     body::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 200%;
-        height: 200%;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/rect%3E%3C/svg%3E");
-        background-size: 200px;
-        pointer-events: none;
-        opacity: 0.5;
-        z-index: -1;
-        animation: noise 30s infinite alternate;
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+      opacity: .42;
+      background-image:
+        linear-gradient(rgba(14, 116, 144, .07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(14, 116, 144, .07) 1px, transparent 1px);
+      background-size: 44px 44px;
+      -webkit-mask-image: linear-gradient(to bottom, #000, transparent 86%);
+      mask-image: linear-gradient(to bottom, #000, transparent 86%);
     }
-    
-    /* 2. Depth and Visual Focus */
-    .card-hover {
-        transition: transform 0.2s, box-shadow 0.3s;
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      opacity: .14;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+      background-size: 240px;
     }
-    .card-hover:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 15px 30px rgba(0, 119, 182, 0.25);
-    }
-    
-    /* 3. Mobile Menu styles */
-    .mobile-menu {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: 99;
-        transform: translateX(100%);
-        transition: transform 0.3s ease-out;
-    }
-    .mobile-menu.open {
-        transform: translateX(0);
-    }
+    .container-pro { width: min(1180px, calc(100% - 2rem)); margin-inline: auto; }
 
-    /* 4. Scrolling Progress Bar */
-    #progress-bar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 3px;
-        background-color: #00b4d8; /* Lighter accent blue */
-        z-index: 50; /* Needs to be slightly lower than header or equal */
-        transition: width 0.1s ease-out;
+    /* Readability typography system */
+    h1, h2, h3, h4, .section-title, .section-kicker, .nav-link, button, .btn, .brand-wordmark {
+      font-family: 'Plus Jakarta Sans', 'Source Sans 3', ui-sans-serif, system-ui, sans-serif;
     }
-
-    /* Desktop Nav Link Animation */
-    .nav-link {
-        position: relative;
-        padding-bottom: 4px;
+    h1, h2, h3 { text-wrap: balance; }
+    p, li { line-height: 1.75; }
+    strong { font-weight: 700; }
+    .font-black { font-weight: 800; }
+    .section-title { letter-spacing: -.028em; line-height: 1.12; font-weight: 800; }
+    .section-kicker { letter-spacing: .14em; font-weight: 800; }
+    .readable-copy { max-width: 72ch; color: #475569; }
+    .card p, .card li { color: #475569; }
+    .pub-card h3, .project-card h3, .team-card h3 { line-height: 1.42; letter-spacing: -.012em; }
+    input, select, textarea { font-family: 'Source Sans 3', ui-sans-serif, system-ui, sans-serif; font-size: 1rem; }
+    .glass {
+      background: linear-gradient(180deg, rgba(255,255,255,.82), rgba(236,254,255,.68));
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(165,243,252,.55);
     }
-    .nav-link::after {
-        content: '';
-        position: absolute;
-        width: 0;
-        height: 2px;
-        bottom: 0;
-        left: 50%;
-        background-color: var(--primary-blue);
-        transition: width 0.3s ease, left 0.3s ease;
-    }
-    .nav-link:hover::after {
-        width: 100%;
-        left: 0;
-    }
-
-    /* Collapsible content animation */
-    .collapsible-content {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease-in-out;
-    }
-    .collapsible-content.open {
-        max-height: 500px; /* Sufficiently large value for content to fit */
-    }
-
-    /* 5. Flip Card Animation */
-    .flip-card {
-      perspective: 1000px;
-    }
-    .flip-card-inner {
+    .card {
       position: relative;
-      width: 100%;
-      height: 100%;
-      transition: transform 0.6s;
-      transform-style: preserve-3d;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(248,253,253,.90));
+      border: 1px solid rgba(125, 211, 252, .28);
+      box-shadow: 0 14px 42px rgba(8, 35, 51, .10);
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease, background-color .22s ease;
     }
-    .flip-card:hover .flip-card-inner {
-      transform: rotateY(180deg);
-    }
-    .flip-card-front, .flip-card-back {
+    .card > * { position: relative; z-index: 1; }
+    .card::after {
+      content: '';
       position: absolute;
-      width: 100%;
-      height: 100%;
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-      border-radius: 1rem; /* rounded-2xl */
-    }
-    .flip-card-back {
-      transform: rotateY(180deg);
-      background: linear-gradient(135deg, #0077b6, #00b4d8);
-      color: white;
-      padding: 1.5rem; /* p-6 */
-    }
-
-    /* 6. Fade-in-on-scroll Animation */
-    .fade-in {
+      inset: 0;
+      pointer-events: none;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(6, 182, 212, .07), transparent 42%, rgba(16, 185, 129, .055));
       opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      transition: opacity .22s ease;
     }
-    .fade-in.is-visible {
-      opacity: 1;
-      transform: translateY(0);
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 72px rgba(8, 51, 68, .18);
+      border-color: rgba(6, 182, 212, .42);
+    }
+    .card:hover::after { opacity: 1; }
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: .75rem;
+      right: .75rem;
+      bottom: .35rem;
+      height: 2px;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--cyan-500), var(--mint-500));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .2s ease;
+    }
+    .nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 80; background: linear-gradient(90deg, var(--brand-700), var(--cyan-500), var(--mint-500)); }
+    .mobile-panel { transform: translateX(100%); transition: transform .25s ease; }
+    .mobile-panel.open { transform: translateX(0); }
+    .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .timeline-line { background: linear-gradient(to bottom, rgba(8,51,68,.06), rgba(6,182,212,.55), rgba(16,185,129,.16)); }
+    .focus-ring:focus-visible { outline: 3px solid rgba(6,182,212,.45); outline-offset: 3px; }
+
+    /* Section-specific color treatment */
+    #about .card { border-left: 5px solid rgba(14,116,144,.62); }
+    #mission .card:first-child { border-top: 5px solid var(--mint-500); }
+    #mission article#vision { border-top: 5px solid var(--cyan-500); }
+    #research-grid .research-card { border-top: 5px solid var(--accent, var(--brand-700)); }
+    #research-grid .research-icon { background: var(--accent-soft, #ecfeff); color: var(--accent, var(--brand-700)); box-shadow: inset 0 0 0 1px rgba(255,255,255,.75); }
+    #research-grid .research-card:nth-child(1) { --accent: var(--rose-500); --accent-soft: var(--rose-50); }
+    #research-grid .research-card:nth-child(2) { --accent: var(--mint-500); --accent-soft: #ecfdf5; }
+    #research-grid .research-card:nth-child(3) { --accent: var(--cyan-500); --accent-soft: #ecfeff; }
+    #projects .project-card { border-left: 5px solid rgba(14,116,144,.68); }
+    #publications .pub-card { border-left: 5px solid rgba(6,182,212,.68); }
+    #team .team-card { background: linear-gradient(135deg, rgba(255,255,255,.96), rgba(236,253,245,.78)); }
+    #news .card { border-color: rgba(245,158,11,.32); background: linear-gradient(135deg, rgba(255,255,255,.96), rgba(255,251,235,.86)); }
+    #opportunities article:first-child { border-top: 5px solid var(--mint-500); }
+    #opportunities article:nth-child(2) { border-top: 5px solid var(--amber-500); }
+
+    @media (max-width: 640px) {
+      body { font-size: 16px; line-height: 1.7; }
+      .section-title { line-height: 1.16; }
+      p, li { line-height: 1.72; }
     }
 
-    /* 7. Publication Card Micro-Improvement (from suggestion 2.3) */
-    .pub-item {
-      transition: transform 0.18s ease-out, box-shadow 0.2s ease-out, background-color 0.2s ease-out;
-    }
-    .pub-item:hover {
-      transform: translateY(-2px);
-      background-color: #f8fbff;
-    }
-    
-    /* 8. Accessibility: Prefers Reduced Motion (from suggestion 3.A) */
     @media (prefers-reduced-motion: reduce) {
-      * {
-        scroll-behavior: auto !important;
-        animation-duration: 0.001ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.001ms !important;
-      }
+      *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .001ms !important; }
+      .reveal { opacity: 1; transform: none; }
     }
-
   </style>
 </head>
-<body class="bg-light-bg text-dark-text">
+<body>
+  <!-- Color system: navy identity, teal/cyan interaction, mint biology, amber highlight, ice surfaces. -->
+  <a href="#main" class="focus-ring sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-xl focus:bg-white focus:px-4 focus:py-3 focus:text-brand-700 focus:shadow-card">Skip to content</a>
+  <div id="progress" class="progress-bar" aria-hidden="true"></div>
 
-  <!-- Scrolling Progress Bar -->
-  <div id="progress-bar"></div>
-
-  <!-- HEADER UPDATED: Now has two rows: Brand (top) and Nav (bottom) -->
-  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm">
-    <!-- Row 1: Brand + Mobile Toggle -->
-    <div class="hero-max mx-auto flex items-center justify-between gap-4 p-4 md:p-6">
-      <div class="flex items-center gap-3">
-        <img class="w-20 h-20 rounded-xl object-contain shadow-md" 
-             src="logo.png.png" 
-             alt="CMBRL logo" />
-        <span class="brand-name font-black text-primary-blue">Cellular & Molecular Biosciences Research Lab (CMBRL)</span>
-      </div>
-      
-      <!-- Mobile Menu Toggle Button (remains in top-right for mobile) -->
-      <button id="mobile-menu-toggle" class="lg:hidden text-primary-blue p-2 rounded-lg hover:bg-gray-100 transition duration-150" aria-label="Open navigation menu">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-      </button>
-    </div>
-    
-    <!-- Row 2: Desktop Navigation Bar -->
-    <nav class="hidden lg:flex hero-max mx-auto items-center justify-center gap-6 text-sm font-medium p-3 border-t border-gray-100" aria-label="Main Desktop Navigation">
-      <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#about">About</a>
-      <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#mission">Mission</a>
-      <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#vision">Vision</a>
-      <a class="text-muted-text hover:text-primary-blue transition duration-1Example 150 nav-link" href="#team">Team</a>
-      <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#research">Research</a>
-      <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#projects">Projects</a>
-      <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#publications">Publications</a>
-      <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#news">News</a>
-      <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#opportunities">Opportunities</a>
-      <a class="text-muted-text hover:text-primary-blue transition duration-150 nav-link" href="#contact">Contact</a>
-    </nav>
-  </header>
-
-  <!-- Mobile Menu Overlay (No changes here) -->
-  <div id="mobile-menu" class="mobile-menu bg-white p-6 shadow-2xl">
-      <div class="flex justify-end">
-          <button id="mobile-menu-close" class="text-primary-blue p-2 rounded-lg hover:bg-gray-100" aria-label="Close navigation menu">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-          </button>
-      </div>
-      <div class="flex flex-col space-y-4 pt-6 text-xl font-medium">
-          <a class="text-dark-text hover:text-primary-blue transition duration-150 border-b border-gray-100 pb-2" href="#about">About</a>
-          <a class="text-dark-text hover:text-primary-blue transition duration-150 border-b border-gray-100 pb-2" href="#mission">Mission</a>
-          <a class="text-dark-text hover:text-primary-blue transition duration-150 border-b border-gray-100 pb-2" href="#vision">Vision</a>
-          <a class="text-dark-text hover:text-primary-blue transition duration-150 border-b border-gray-100 pb-2" href="#team">Team</a>
-          <a class="text-dark-text hover:text-primary-blue transition duration-150 border-b border-gray-100 pb-2" href="#research">Research</a>
-          <a class="text-dark-text hover:text-primary-blue transition duration-150 border-b border-gray-100 pb-2" href="#projects">Projects</a>
-          <a class="text-dark-text hover:text-primary-blue transition duration-150 border-b border-gray-100 pb-2" href="#publications">Publications</a>
-          <a class="text-dark-text hover:text-primary-blue transition duration-150 border-b border-gray-100 pb-2" href="#news">News</a>
-          <a class="text-dark-text hover:text-primary-blue transition duration-150 border-b border-gray-100 pb-2" href="#opportunities">Opportunities</a>
-          <a class="text-dark-text hover:text-primary-blue transition duration-150" href="#contact">Contact</a>
-      </div>
-  </div>
-
-  <main>
-
-    <!-- Lab Head Animated Card Section -->
-    <section class="hero-max mx-auto flex justify-center items-center px-4 py-8 md:py-12 fade-in">
-      <div class="flip-card w-full max-w-sm h-64" role="group">
-        <div class="flip-card-inner">
-          <!-- Card Front -->
-          <div class="flip-card-front flex flex-col items-center justify-center bg-white rounded-2xl shadow-xl p-6 border border-gray-100 card-hover">
-            <img class="w-32 h-32 rounded-full object-cover border-4 border-primary-blue/30 shadow-lg" 
-                 src="sherif-ibrahim.jpg" 
-                 alt="Headshot of Prof. Dr. Sherif Abdelaziz Ibrahim" />
-            <strong class="text-dark-text text-xl font-bold mt-4">Prof. Dr. Sherif Abdelaziz Ibrahim</strong>
-            <span class="text-primary-blue font-semibold">Head & Founder</span>
-            <span class="text-xs text-muted-text mt-4 animate-pulse">Hover for details</span>
-          </div>
-          
-          <!-- Card Back -->
-          <div class="flip-card-back flex flex-col justify-center text-center">
-            <h3 class="text-xl font-bold mb-2">Prof. Dr. Sherif A. Ibrahim</h3>
-            <p class="text-sm">Professor of Cell and Cancer Biology</p>
-            <p class="text-sm">Ph.D Münster, Germany (2011)</p>
-            <p class="text-sm font-semibold mt-3">Research Focus:</p>
-            <p class="text-xs leading-snug">
-              Defining molecular signatures in inflammatory breast cancer (IBC) and its microenvironment, focusing on Syndecan-1, cancer stem cells, and exosomes.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Hero Section -->
-    <section class="hero hero-max mx-auto grid lg:grid-cols-12 gap-8 px-4 py-8 md:py-12 relative overflow-hidden">
-      <!-- NEW: Subtle background blob (Suggestion 2.6) -->
-      <div class="pointer-events-none absolute -right-40 -top-40 w-80 h-80 bg-primary-blue/10 rounded-full blur-3xl"></div>
-
-      <div class="card bg-white rounded-2xl shadow-xl p-6 lg:p-8 lg:col-span-8 fade-in" style="transition-delay: 100ms;">
-        <h1 class="h1 text-dark-text">We explore <em>ideas</em> that matter.</h1>
-        <p class="text-muted-text mt-4 leading-relaxed">
-          Cellular and Molecular Biosciences Research Laboratory at Cairo University.
-          Our research spans a broad range of interconnected areas, including:
-        </p>
-        <p class="text-dark-text mt-4">
-          <strong>Cancer Research</strong> — focusing on biomarker discovery, tumor progression, and therapeutic targeting.<br>
-          <strong>Cell Biology</strong> — elucidating signaling pathways, extracellular matrix interactions, and cell–cell communication.<br>
-          <strong>Human Biology</strong> — linking laboratory discoveries to clinical translation and patient outcomes.
-        </p>
-        <div class="flex flex-wrap gap-2 mt-4">
-          <span class="bg-blue-100 text-primary-blue text-xs font-medium px-3 py-1 rounded-full border border-blue-200">Cancer biology</span>
-          <span class="bg-blue-100 text-primary-blue text-xs font-medium px-3 py-1 rounded-full border border-blue-200">Breast cancer</span>
-          <span class="bg-blue-100 text-primary-blue text-xs font-medium px-3 py-1 rounded-full border border-blue-200">Translational research</span>
-        </div>
-        <div class="flex flex-wrap gap-4 mt-8">
-          <a class="inline-flex items-center gap-2 px-5 py-3 text-white font-semibold rounded-xl transition duration-150 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5" 
-             style="background: linear-gradient(135deg, #0077b6, #00b4d8);" 
-             href="#publications">
-             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-            Browse publications
-          </a>
-          <a class="inline-flex items-center gap-2 px-5 py-3 text-dark-text border border-gray-300 bg-gray-50 font-medium rounded-xl hover:bg-white transition duration-150" 
-             href="#contact">
-             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2c.5 0 1 .5 1 1v18c0 .5-.5 1-1 1H2.5c-.5 0-1-.5-1-1V3c0-.5.5-1 1-1h19z"></path><path d="M10 10l-6 6"></path><path d="M14 10l6 6"></path></svg>
-            Get in touch
-          </a>
-        </div>
-      </div>
-      <div class="card bg-white rounded-2xl shadow-xl p-6 lg:col-span-4 fade-in" style="transition-delay: 200ms;">
-        <h2 class="text-xl font-semibold mb-3 text-primary-blue border-b pb-2 border-gray-100">Latest Highlights</h2>
-        <ul class="text-muted-text list-disc space-y-2 pl-5">
-          <li>New paper accepted in *Scientific Reports* on SDC2 and FN as biomarkers for lymph node metastasis in breast cancer.</li>
-          <li>Dr. Hassan received a grant for the STDF project on extracellular vesicle-derived proteoglycans.</li>
-          <li>CMBRL presented new findings on microRNA signatures at the latest International Congress for Molecular Biology.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- NEW: Anchor Pill Buttons (Suggestion 1.D) -->
-    <section class="hero-max mx-auto px-4 py-4 -mt-4 md:-mt-8 flex justify-center flex-wrap gap-2 fade-in" style="transition-delay: 300ms;">
-      <a href="#about" class="px-3 py-1 text-xs font-medium text-muted-text bg-white rounded-full shadow-md hover:text-primary-blue hover:shadow-lg transition">About</a>
-      <a href="#team" class="px-3 py-1 text-xs font-medium text-muted-text bg-white rounded-full shadow-md hover:text-primary-blue hover:shadow-lg transition">Team</a>
-      <a href="#projects" class="px-3 py-1 text-xs font-medium text-muted-text bg-white rounded-full shadow-md hover:text-primary-blue hover:shadow-lg transition">Projects</a>
-      <a href="#publications" class="px-3 py-1 text-xs font-medium text-muted-text bg-white rounded-full shadow-md hover:text-primary-blue hover:shadow-lg transition">Publications</a>
-    </section>
-
-    <!-- NEW: "Key Numbers" Stats Section (Suggestion 1.A & 2.1) -->
-    <section class="hero-max mx-auto px-4 py-8">
-      <div class="grid gap-4 md:grid-cols-4">
-        <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md p-4 text-center card-hover">
-          <div class="text-2xl md:text-3xl font-extrabold text-primary-blue counter" data-target="41">0</div>
-          <div class="text-xs uppercase tracking-wide text-muted-text mt-1">Publications</div>
-        </div>
-        <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md p-4 text-center card-hover">
-          <div class="text-2xl md:text-3xl font-extrabold text-primary-blue counter" data-target="7">0</div>
-          <div class="text-xs uppercase tracking-wide text-muted-text mt-1">Funded projects</div>
-        </div>
-        <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md p-4 text-center card-hover">
-          <div class="text-2xl md:text-3xl font-extrabold text-primary-blue counter" data-target="3">0</div>
-          <div class="text-xs uppercase tracking-wide text-muted-text mt-1">International partners</div>
-        </div>
-        <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md p-4 text-center card-hover">
-          <div class="text-2xl md:text-3xl font-extrabold text-primary-blue counter" data-target="6">0</div>
-          <div class="text-xs uppercase tracking-wide text-muted-text mt-1">Team members</div>
-        </div>
-      </div>
-    </section>
-
-
-    <section id="about" class="hero-max mx-auto px-4 py-8 fade-in">
-      <h2 class="text-2xl font-bold mb-4 text-primary-blue">About the Lab</h2>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 card-hover">
-          <p class="leading-relaxed">The <strong>Cellular and Molecular Biosciences Research Laboratory (CMBRL)</strong> at Cairo University—founded and led by <strong>Prof. Dr. Sherif A. Ibrahim</strong>, Professor of Zoology (Cancer Cell Biology) and Egyptian leader of the GLYCANC Project—is dedicated to advancing our understanding of cancer biology at the molecular and cellular levels.</p>
-          <p class="leading-relaxed mt-4">Prof. Ibrahim has secured competitive funding from EU Horizon 2020 to investigate the role of the cell-surface heparan sulfate proteoglycan <em>Syndecan-1 (Sdc-1)</em> and regulatory microRNAs in breast cancer progression. He has also led projects funded by DAAD, STDF, and ASRT. His pioneering work aims to define distinct molecular signatures and uncover novel mechanisms driving inflammatory breast cancer (IBC) and its tumor microenvironment, with emphasis on proteoglycans, cancer stem cells, and extracellular vesicles.</p>
-          <p class="text-sm text-muted-text mt-4">Founded: <strong>2019</strong> • Department of Zoology, Faculty of Science, Cairo University — Giza, Egypt</p>
-        </div>
-        <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 card-hover">
-          <h3 class="text-xl font-semibold text-primary-blue mb-2">Opportunities</h3>
-          <p><strong>Open Positions:</strong> Not applicable at this time. Follow us for future opportunities.</p>
-          <p class="text-muted-text mt-2">We welcome collaborative projects and visiting researchers. Please contact Prof. Ibrahim directly with proposals.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="mission" class="hero-max mx-auto px-4 py-8 fade-in">
-      <h2 class="text-2xl font-bold mb-4 text-primary-blue">Mission</h2>
-      <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 card-hover">
-        <p class="leading-relaxed">
-          To elucidate the molecular circuitry of cancer—with emphasis on breast cancer and related conditions such as endometriosis—by discovering robust early-detection biomarkers and actionable therapeutic targets, and by decoding the signaling networks and microenvironmental cues that drive initiation, progression, and treatment resistance. We conduct rigorously reproducible research using state-of-the-art cellular, molecular, and multi-omics technologies, translating mechanistic insight into clinically relevant strategies for patients in Egypt and worldwide.
-        </p>
-      </div>
-    </section>
-
-    <section id="vision" class="hero-max mx-auto px-4 py-8 fade-in">
-      <h2 class="text-2xl font-bold mb-4 text-primary-blue">Vision</h2>
-      <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 card-hover">
-        <p class="leading-relaxed">
-          A future where breast cancer is detected earlier, treated more precisely, and prevented more effectively through validated biomarkers, targeted therapeutics, and deep mechanistic understanding—bridging bench discoveries to bedside impact for communities in Egypt and beyond.
-        </p>
-      </div>
-    </section>
-
-    <section id="team" class="hero-max mx-auto px-4 py-8 fade-in">
-      <h2 class="text-2xl font-bold mb-4 text-primary-blue">Research Team</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        
-        <div class="flex items-center gap-4 p-4 bg-white rounded-xl shadow-md border border-gray-100 card-hover">
-          <img class="w-16 h-16 rounded-full object-cover border-2 border-primary-blue/30" 
-               src="sherif-ibrahim.jpg" 
-               alt="Headshot of Prof. Dr. Sherif Abdelaziz Ibrahim" loading="lazy" />
-          <div>
-            <strong class="text-dark-text">Prof. Dr. Sherif Abdelaziz Ibrahim</strong><br>
-            <span class="text-sm text-muted-text">Professor of Cancer Cell Biology • Head & Founder</span>
-          </div>
-        </div>
-        
-        <div class="flex items-center gap-4 p-4 bg-white rounded-xl shadow-md border border-gray-100 card-hover">
-          <img class="w-16 h-16 rounded-full object-cover border-2 border-primary-blue/30" 
-               src="logo.png.png" 
-               alt="Headshot of Dr. Hebatallah Hassan" loading="lazy" />
-          <div>
-            <strong class="text-dark-text">Dr. Hebatallah Hassan</strong><br>
-            <span class="text-sm text-muted-text">Associate Professor • Co-PI</span>
-          </div>
-        </div>
-        
-        <div class="flex items-center gap-4 p-4 bg-white rounded-xl shadow-md border border-gray-100 card-hover">
-          <img class="w-16 h-16 rounded-full object-cover border-2 border-primary-blue/30" 
-               src="amr-walyeldden.jpg.jpg" 
-               alt="Headshot of Mr. Amr Ahmed WalyEldden" loading="lazy" />
-          <div>
-            <strong class="text-dark-text">Mr. Amr Ahmed WalyEldden</strong><br>
-            <span class="text-sm text-muted-text">PhD Student • Senior Researcher</span>
-          </div>
-        </div>
-        
-        <div class="flex items-center gap-4 p-4 bg-white rounded-xl shadow-md border border-gray-100 card-hover">
-          <img class="w-16 h-16 rounded-full object-cover border-2 border-primary-blue/30" 
-               src="liali-yousef-talat.jpg.jpeg" 
-               alt="Headshot of Ms. Liali Yousef Talat" loading="lazy" />
-          <div>
-            <strong class="text-dark-text">Ms. Liali Yousef Talat</strong><br>
-            <span class="text-sm text-muted-text">PhD Student • Senior Researcher</span>
-          </div>
-        </div>
-        
-        <div class="flex items-center gap-4 p-4 bg-white rounded-xl shadow-md border border-gray-100 card-hover">
-          <img class="w-16 h-16 rounded-full object-cover border-2 border-primary-blue/30" 
-               src="logo.png.png" 
-               alt="Headshot of Mrs. Maysaa Maher" loading="lazy" />
-          <div>
-            <strong class="text-dark-text">Mrs. Maysaa Maher</strong><br>
-            <span class="text-sm text-muted-text">MSc Student • Junior Researcher</span>
-          </div>
-        </div>
-        
-      </div>
-    </section>
-
-    <section id="research" class="hero-max mx-auto px-4 py-8 fade-in">
-      <h2 class="text-2xl font-bold mb-4 text-primary-blue">Research Areas</h2>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 card-hover">
-          <div class="text-sm font-semibold text-primary-blue mb-1">Cancer Research</div>
-          <h3 class="text-xl font-semibold text-dark-text mb-2">Biomarker Discovery & Therapeutic Targeting</h3>
-          <p class="text-muted-text text-sm">We focus on identifying molecular biomarkers for early detection and uncovering novel therapeutic targets that drive tumor progression, with emphasis on inflammatory breast cancer.</p>
-        </div>
-        <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 card-hover">
-          <div class="text-sm font-semibold text-primary-blue mb-1">Cell Biology</div>
-          <h3 class="text-xl font-semibold text-dark-text mb-2">Signaling & Microenvironment</h3>
-          <p class="text-muted-text text-sm">Our work explores cellular signaling pathways, extracellular matrix interactions, and mechanisms of cell–cell communication shaping cancer progression and metastasis.</p>
-        </div>
-        <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 card-hover">
-          <div class="text-sm font-semibold text-primary-blue mb-1">Human Biology</div>
-          <h3 class="text-xl font-semibold text-dark-text mb-2">Clinical Translation</h3>
-          <p class="text-muted-text text-sm">We link laboratory discoveries to clinical outcomes, integrating molecular and proteomic insights to improve patient diagnosis, treatment, and prognosis.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="projects" class="hero-max mx-auto px-4 py-8 fade-in">
-      <h2 class="text-2xl font-bold mb-4 text-primary-blue">Projects & International Collaborations</h2>
-      
-      <!-- NEW: Timeline structure (Suggestion 2.2) -->
-      <div class="relative pl-6 md:pl-8">
-        <!-- vertical line -->
-        <div class="absolute left-2 md:left-3 top-0 bottom-0 w-px bg-primary-blue/20"></div>
-
-        <!-- Project 1 (VISIBLE) -->
-        <div class="relative mb-4">
-          <div class="absolute -left-0.5 md:-left-1 top-3 w-3 h-3 md:w-4 md:h-4 rounded-full bg-primary-blue shadow-md"></div>
-          <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 card-hover">
-            <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
-              <div class="font-semibold text-dark-text">
-                1. Proteomic profiling of exosomes: Discovery of novel diagnostic biomarkers for lymph node metastasis in breast cancer
-              </div>
-              <span class="text-xs px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2022–2025</span>
-            </div>
-            <div class="text-xs text-muted-text">
-              PI: Dr. Sherif A. Ibrahim • Grant ID: Respect1-10052 • Funding: ASRT
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 2 (VISIBLE) -->
-        <div class="relative mb-4">
-          <div class="absolute -left-0.5 md:-left-1 top-3 w-3 h-3 md:w-4 md:h-4 rounded-full bg-primary-blue shadow-md"></div>
-          <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 card-hover">
-            <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
-              <div class="font-semibold text-dark-text">
-                2. Extracellular vesicle-derived proteoglycans as non-invasive liquid biopsy-based cancer biomarkers: Towards novel breast cancer screening
-              </div>
-              <span class="text-xs px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2022–2025</span>
-            </div>
-            <div class="text-xs text-muted-text">
-              PI: Dr. Hebatallah Hassan • Co-PI: Dr. Sherif A. Ibrahim • Grant ID: 46282 • Funding: STDF
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 3 (VISIBLE) -->
-        <div class="relative mb-4">
-          <div class="absolute -left-0.5 md:-left-1 top-3 w-3 h-3 md:w-4 md:h-4 rounded-full bg-primary-blue shadow-md"></div>
-          <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 card-hover">
-            <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
-              <div class="font-semibold text-dark-text">
-                3. Syndecan-1 as a novel therapeutic target for putative stem cells in inflammatory breast cancer
-              </div>
-              <span class="text-xs px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2014–2017</span>
-            </div>
-            <div class="text-xs text-muted-text">
-              PI: Dr. Sherif A. Ibrahim • Grant ID: 6309 • Funding: STDF
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 4 (HIDDEN) -->
-        <div class="relative mb-4 more-projects-item hidden">
-          <div class="absolute -left-0.5 md:-left-1 top-3 w-3 h-3 md:w-4 md:h-4 rounded-full bg-primary-blue shadow-md"></div>
-          <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 card-hover">
-            <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
-              <div class="font-semibold text-dark-text">
-                4. MicroRNA signatures as potential biomarkers and therapeutic targets in inflammatory and non-inflammatory breast cancer Egyptian patients
-              </div>
-              <span class="text-xs px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2016–2017</span>
-            </div>
-            <div class="text-xs text-muted-text">
-              PI: Dr. Sherif A. Ibrahim • Grant ID: 12683 • Funding: STDF
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 5 (HIDDEN) -->
-        <div class="relative mb-4 more-projects-item hidden">
-          <div class="absolute -left-0.5 md:-left-1 top-3 w-3 h-3 md:w-4 md:h-4 rounded-full bg-primary-blue shadow-md"></div>
-          <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 card-hover">
-            <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
-              <div class="font-semibold text-dark-text">
-                5. Matrix glycans as multifunctional pathogenesis factors and therapeutic targets in cancer
-              </div>
-              <span class="text-xs px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2015–2019</span>
-            </div>
-            <div class="text-xs text-muted-text">
-              PI: Prof. Martin Götte • Egyptian Partner: Dr. Sherif A. Ibrahim • Grant ID: 645756 • Funding: EU H2020-MSCA-RISE
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 6 (HIDDEN) -->
-        <div class="relative mb-4 more-projects-item hidden">
-          <div class="absolute -left-0.5 md:-left-1 top-3 w-3 h-3 md:w-4 md:h-4 rounded-full bg-primary-blue shadow-md"></div>
-          <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 card-hover">
-            <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
-              <div class="font-semibold text-dark-text">
-                6. Syndecan-1 as a modulator of exosome-mediated microRNA function in inflammatory breast cancer
-              </div>
-              <span class="text-xs px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2015</span>
-            </div>
-            <div class="text-xs text-muted-text">
-              PI: Prof. Martin Götte • Egyptian Investigator: Dr. Sherif A. Ibrahim • Grant ID: 56808461 • Funding: DAAD
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 7 (HIDDEN) -->
-        <div class="relative mb-4 more-projects-item hidden">
-          <div class="absolute -left-0.5 md:-left-1 top-3 w-3 h-3 md:w-4 md:h-4 rounded-full bg-primary-blue shadow-md"></div>
-          <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 card-hover">
-            <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
-              <div class="font-semibold text-dark-text">
-                7. Syndecan-1 in inflammation
-              </div>
-              <span class="text-xs px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2013–2014</span>
-            </div>
-            <div class="text-xs text-muted-text">
-              PI: Prof. Martin Götte • Egyptian Investigator: Dr. Sherif A. Ibrahim • Grant ID: 56808461 • Funding: DAAD
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <!-- Toggle Button for Projects -->
-      <div class="flex justify-center mt-4">
-          <button id="toggle-projects-btn" data-type="Projects" class="text-primary-blue font-semibold hover:underline transition duration-150">Show 4 more Projects</button>
-      </div>
-    </section>
-
-    <!-- PUBLICATIONS SECTION WITH FILTERS + SHOW MORE -->
-    <section id="publications" class="hero-max mx-auto px-4 py-8 fade-in">
-      <h2 class="text-2xl font-bold mb-4 text-primary-blue">Publications (41 Total)</h2>
-      
-      <!-- Button to toggle the filter/search controls -->
-      <button id="toggle-pub-controls-btn" class="flex items-center gap-2 px-4 py-2 mb-4 text-sm font-medium bg-white rounded-xl border border-gray-300 hover:bg-gray-100 transition duration-150 text-dark-text">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-primary-blue transform transition-transform duration-300" id="filter-icon"><path d="M22 3.5H2l8 8.4V22h4v-10.1L22 3.5z"/></svg>
-        Filter & Search Options
-      </button>
-
-      <!-- Controls for Search, Sort, and Filter (Collapsible Content) -->
-      <div id="pub-controls" class="collapsible-content">
-        <div class="bg-white rounded-xl shadow-md p-4 mb-6 border border-gray-100 card-hover">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            
-            <!-- Search Box -->
-            <div class="md:col-span-1">
-              <label for="pub-search" class="block text-xs font-medium text-muted-text mb-1">Search Title or Journal</label>
-              <input type="text" id="pub-search" placeholder="e.g., Syndecan-1 or PLOS ONE" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-dark-text focus:ring-primary-blue focus:border-primary-blue">
-            </div>
-            
-            <!-- Sort Dropdown -->
-            <div class="md:col-span-1">
-              <label for="pub-sort" class="block text-xs font-medium text-muted-text mb-1">Sort By</label>
-              <select id="pub-sort" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-dark-text focus:ring-primary-blue focus:border-primary-blue bg-white">
-                <option value="year-desc">Year (Latest First)</option>
-                <option value="year-asc">Year (Oldest First)</option>
-              </select>
-            </div>
-
-            <!-- Filter Dropdown -->
-            <div class="md:col-span-1">
-              <label for="pub-filter-year" class="block text-xs font-medium text-muted-text mb-1">Filter By Year</label>
-              <select id="pub-filter-year" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-dark-text focus:ring-primary-blue focus:border-primary-blue bg-white">
-                <option value="">All Years</option>
-                <!-- Options populated by JS later -->
-              </select>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <!-- Show More / Less Publications Button (next to filters) -->
-      <div class="flex justify-end mb-4">
-        <button
-          id="toggle-publications-btn"
-          class="text-primary-blue font-semibold hover:underline text-sm"
-        >
-          Show more Publications
+  <header id="site-header" class="sticky top-0 z-50 border-b border-white/60 bg-white/90 backdrop-blur-xl">
+    <div class="container-pro">
+      <div class="flex items-center justify-between gap-4 py-3 lg:py-4">
+        <a href="#home" class="focus-ring flex min-w-0 items-center gap-3 rounded-2xl" aria-label="CMBRL home">
+          <img src="logo.png.png" alt="CMBRL logo" class="h-14 w-14 shrink-0 rounded-2xl border border-brand-100 bg-white object-contain p-1 shadow-sm" />
+          <span class="min-w-0">
+            <span class="brand-wordmark block truncate text-sm font-black uppercase tracking-[.2em] text-brand-700">CMBRL</span>
+            <span class="block max-w-[58vw] truncate text-sm font-semibold text-slate-700 sm:max-w-none">Cellular & Molecular Biosciences Research Laboratory</span>
+          </span>
+        </a>
+        <nav class="hidden items-center gap-1 rounded-2xl bg-slate-50/80 p-1 text-sm font-semibold text-slate-600 ring-1 ring-slate-200/80 lg:flex" aria-label="Primary navigation">
+          <a class="nav-link focus-ring rounded-xl px-3 py-2 hover:text-brand-700" href="#home">Home</a>
+          <a class="nav-link focus-ring rounded-xl px-3 py-2 hover:text-brand-700" href="#research">Research</a>
+          <a class="nav-link focus-ring rounded-xl px-3 py-2 hover:text-brand-700" href="#projects">Projects</a>
+          <a class="nav-link focus-ring rounded-xl px-3 py-2 hover:text-brand-700" href="#team">Team</a>
+          <a class="nav-link focus-ring rounded-xl px-3 py-2 hover:text-brand-700" href="#publications">Publications</a>
+          <a class="nav-link focus-ring rounded-xl px-3 py-2 hover:text-brand-700" href="#contact">Contact</a>
+        </nav>
+        <a href="mailto:cmb.research.lab@gmail.com" class="focus-ring hidden rounded-2xl bg-brand-700 px-4 py-2.5 text-sm font-bold text-white shadow-card transition hover:-translate-y-0.5 hover:bg-brand-900 md:inline-flex">Contact lab</a>
+        <button id="menu-open" class="focus-ring inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-brand-700 shadow-sm ring-1 ring-slate-200 lg:hidden" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
         </button>
       </div>
+    </div>
+  </header>
 
-      <!-- Publication List Container -->
-      <div id="publication-list" class="grid gap-4">
-        
-        <!-- Publication 1 (VISIBLE) -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 pub-item card-hover" data-year="2025">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Glypican3 and serglycin as potential biomarkers involved in the pathogenesis of ovarian endometriosis</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2025</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Tissue and Cell</span> (2025).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1016/j.tice.2025.102867" target="_blank" rel="noopener">View publication</a>
-          </div>
+  <aside id="mobile-menu" class="mobile-panel fixed inset-0 z-[90] bg-slate-950/30 lg:hidden" aria-hidden="true">
+    <div class="ml-auto flex h-full w-[min(88vw,390px)] flex-col bg-white p-6 shadow-2xl">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <div class="text-xs font-bold uppercase tracking-[.18em] text-brand-700">CMBRL</div>
+          <div class="text-sm font-semibold text-slate-600">Cairo University</div>
         </div>
+        <button id="menu-close" class="focus-ring inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-50 text-brand-700 ring-1 ring-slate-200" aria-label="Close menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <nav class="mt-8 grid gap-2 text-lg font-bold text-slate-800" aria-label="Mobile navigation">
+        <a href="#home" class="focus-ring rounded-2xl border border-slate-100 px-4 py-3 hover:bg-brand-50 hover:text-brand-700">Home</a>
+        <a href="#about" class="focus-ring rounded-2xl border border-slate-100 px-4 py-3 hover:bg-brand-50 hover:text-brand-700">About</a>
+        <a href="#research" class="focus-ring rounded-2xl border border-slate-100 px-4 py-3 hover:bg-brand-50 hover:text-brand-700">Research</a>
+        <a href="#projects" class="focus-ring rounded-2xl border border-slate-100 px-4 py-3 hover:bg-brand-50 hover:text-brand-700">Projects</a>
+        <a href="#team" class="focus-ring rounded-2xl border border-slate-100 px-4 py-3 hover:bg-brand-50 hover:text-brand-700">Team</a>
+        <a href="#publications" class="focus-ring rounded-2xl border border-slate-100 px-4 py-3 hover:bg-brand-50 hover:text-brand-700">Publications</a>
+        <a href="#opportunities" class="focus-ring rounded-2xl border border-slate-100 px-4 py-3 hover:bg-brand-50 hover:text-brand-700">Opportunities</a>
+        <a href="#contact" class="focus-ring rounded-2xl border border-slate-100 px-4 py-3 hover:bg-brand-50 hover:text-brand-700">Contact</a>
+      </nav>
+      <div class="mt-auto rounded-3xl bg-brand-50 p-4 text-sm text-slate-600">
+        Department of Zoology, Faculty of Science, Cairo University, Giza, Egypt
+      </div>
+    </div>
+  </aside>
 
-        <!-- Publication 2 (VISIBLE) -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 pub-item card-hover" data-year="2025">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Designing and fabrication of BIRC5-mRNA-based biosensor for early breast cancer diagnosis using a nanostructured (CeO₂-Ru@AuNPs-CNTs)-lab-on-chip</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2025</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Biochemical Engineering Journal</span> (2025).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1016/j.bej.2025.109754" target="_blank" rel="noopener">View publication</a>
-          </div>
+  <main id="main">
+    <section id="home" class="container-pro grid gap-8 pb-10 pt-10 lg:grid-cols-[1.12fr_.88fr] lg:pb-16 lg:pt-14">
+      <div class="reveal relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-brand-900 via-brand-700 to-cyan-500 p-6 text-white shadow-soft ring-1 ring-cyan-200/20 sm:p-8 lg:p-10">
+        <div class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
+        <div class="absolute bottom-8 right-8 hidden h-36 w-36 rounded-full border border-white/20 lg:block"></div>
+        <p class="section-kicker text-xs font-black uppercase text-cyan-100">Cairo University · Translational cancer biology</p>
+        <h1 class="mt-5 max-w-3xl text-4xl font-black leading-tight tracking-[-.045em] sm:text-5xl lg:text-6xl">Cellular & Molecular Biosciences Research Laboratory</h1>
+        <p class="mt-5 max-w-2xl text-lg leading-8 text-cyan-50">Advancing molecular and cellular insight into cancer biology, biomarker discovery, extracellular vesicles, proteoglycans, and clinically relevant translational research.</p>
+        <div class="mt-7 flex flex-wrap gap-3">
+          <a href="#team" class="focus-ring inline-flex items-center rounded-2xl bg-white px-5 py-3 text-sm font-black text-brand-800 shadow-card transition hover:-translate-y-0.5">Meet the team</a>
+          <a href="#publications" class="focus-ring inline-flex items-center rounded-2xl border border-white/40 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-white/10">Browse publications</a>
         </div>
-
-        <!-- Publication 3 (VISIBLE) -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 pub-item card-hover" data-year="2025">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Cicer arietinum extract as antitumor and protective agent against Ehrlich solid carcinoma-bearing mice</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2025</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">BMC Complementary Medicine and Therapies</span> (2025).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1186/s12906-025-05061-z" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- HIDDEN PUBLICATIONS (Items 4-41) -->
-        
-        <!-- Publication 4 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2025">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Liposomal delivery of Allolobophora caliginosa coelomic fluid attenuates myocardial infarction by suppressing oxidative damage, inflammation, and apoptosis</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2025</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Applied Biochemistry and Biotechnology</span> (2025).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1007/s12010-025-05340-y" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 5 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2025">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Chrysin-loaded PLGA nanoparticles alleviate the implantation of endometriotic lesions via attenuation of peritoneal inflammation and downregulating NF-κB activation-driven expression of angiogenic factors</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2025</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Journal of Drug Delivery Science and Technology</span> (2025).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1016/j.jddst.2025.106984" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 6 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2025">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">SDC2 and FN as cargo proteins in circulating extracellular vesicles in obese breast cancer patients with lymph node metastasis</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2025</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Scientific Reports</span> (2025).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1038/s41598-025-17638-2" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 7 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2025">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Calothrixin B by docking JAK2 is a potential therapeutic inhibitor for pancreatic ductal adenocarcinoma</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2025</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Journal of Pharmacy and Pharmacology</span> (2025).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1093/jpp/rgae149" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 8 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2025">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">The clinical potential of PDL-1 pathway and some related micro-RNAs as promising diagnostic markers for breast cancer</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2025</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Molecular Medicine</span> (2025).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1186/s10020-025-01137-1" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 9 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2025">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">EXT1 as an independent prognostic biomarker in breast cancer: Its correlation with immune infiltration and clinicopathological parameters</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2025</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Immuno.</span> (2025).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.3390/immuno5010001" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 10 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2025">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Integrative multi-omics analysis of autism spectrum disorder reveals unique microbial macromolecules interactions</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2025</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Journal of Advanced Research</span> (2025).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1016/j.jare.2025.01.036" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 11 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2024">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Curcumin, piperine and taurine combination enhances the efficacy of transarterial chemoembolization therapy in patients with intermediate stage hepatocellular carcinoma: A pilot study</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2024</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Asian Pacific Journal of Cancer Prevention</span> (2024).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.31557/APJCP.2024.25.5.1589" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 12 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2024">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Compartmental syndecan-1 (CD138) expression as a novel prognostic marker in triple-negative metaplastic breast cancer</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2024</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Pathology Research and Practice</span> (2024).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1016/j.prp.2023.154994" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 13 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2023">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Tumor suppressor miR-218 directly targets epidermal growth factor receptor (EGFR) expression in triple-negative breast cancer, sensitizing cells to irradiation</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2023</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Journal of Cancer Research and Clinical Oncology</span> (2023).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1007/s00432-023-04750-x" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 14 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2023">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Anticancer activity of new bis-(3-(thiophen-2-yl)-1H-pyrazol-4-yl)chalcones: Synthesis, in silico, and in vitro studies</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2023</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Polycyclic Aromatic Compounds</span> (2023).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1080/10406638.2022.2046616" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 15 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2023">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Cytotoxic activity, apoptosis induction and cell cycle arrest in human breast cancer (MCF7) cells by a novel fluorinated tetrahydro-[1,2,4]triazolo[3,4-a]isoquinolin chalcone</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2023</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Polycyclic Aromatic Compounds</span> (2023).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1080/10406638.2021.2014535" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 16 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2023">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Revisiting the syndecans: Master signaling regulators with prognostic and targetable therapeutic values in breast carcinoma</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2023</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Cancers</span> (2023).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.3390/cancers15061794" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 17 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2023">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Chalcones: Promising therapeutic agents targeting key players and signaling pathways regulating the hallmarks of cancer</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2023</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Chemico-Biological Interactions</span> (2023).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1016/j.cbi.2022.110297" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 18 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2023">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Yttrium oxide nanoparticles induce cytotoxicity, genotoxicity, apoptosis, and ferroptosis in the human triple-negative breast cancer MDA-MB-231 cells</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2023</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">BMC Cancer</span> (2023).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1186/s12885-023-11649-w" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 19 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2023">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Editorial: Cancer stem cells as attractive targets for breast cancer therapy</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2023</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Frontiers in Oncology</span> (2023).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.3389/fonc.2023.1151742" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 20 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2022">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Synthesis and anticancer activities of novel bis-chalcones incorporating the 1,3-diphenyl-1H-pyrazole moiety: In silico and in vitro studies</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2022</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Letters in Drug Design and Discovery</span> (2022).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.2174/1570180819666220301151631" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 21 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2022">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Role of adipose tissue-derived cytokines in the progression of inflammatory breast cancer in patients with obesity</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2022</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Lipids in Health and Disease</span> (2022).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1186/s12944-022-01678-y" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 22 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2022">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Differential impact of membrane-bound and soluble forms of the prognostic marker syndecan-1 on the invasiveness, migration, apoptosis, and proliferation of cervical cancer cells</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2022</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Frontiers in Oncology</span> (2022).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.3389/fonc.2022.803899" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 23 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2022">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">[1,2,4]Triazolo[3,4-a]isoquinoline chalcone derivative exhibits anticancer activity via induction of oxidative stress, DNA damage, and apoptosis in Ehrlich solid carcinoma-bearing mice</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2022</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Naunyn-Schmiedeberg’s Archives of Pharmacology</span> (2022).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1007/s00210-022-02269-5" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 24 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2021">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">EGFR-dependent extracellular matrix protein interactions might light a candle in cell behavior of non-small cell lung cancer</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2021</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Frontiers in Oncology</span> (2021).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.3389/fonc.2021.766659" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 25 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2021">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Syndecan-1 promotes angiogenesis in triple-negative breast cancer through the prognostically relevant tissue factor pathway and additional angiogenic routes</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2021</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Cancers</span> (2021).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.3390/cancers13102318" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 26 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2021">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Impact of type 2 diabetes mellitus on the immunoregulatory characteristics of adipose tissue-derived mesenchymal stem cells</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2021</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">International Journal of Biochemistry and Cell Biology</span> (2021).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1016/j.biocel.2021.106072" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 27 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2021">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Small extracellular vesicle-encapsulated miR-181b-5p, miR-222-3p and let-7a-5p: Next generation plasma biopsy-based diagnostic biomarkers for inflammatory breast cancer</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2021</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">PLoS ONE</span> (2021).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1371/journal.pone.0250642" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 28 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2021">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">The heparan sulfate proteoglycan syndecan-1 regulates colon cancer stem cell function via a focal adhesion kinase–Wnt signaling axis</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2021</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">FEBS Journal</span> (2021).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1111/febs.15356" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 29 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2021">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Cell behavior of non-small cell lung cancer is at EGFR and microRNAs hands</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2021</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">International Journal of Molecular Sciences</span> (2021).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.3390/ijms222212496" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 30 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2021">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Role of syndecan-1 in cancer stem cells.</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2021</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Biology of Extracellular Matrix</span> (2021).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1007/978-3-030-73453-4_12" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 31 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2020">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">HS2ST1-dependent signaling pathways determine breast cancer cell viability, matrix interactions, and invasive behavior</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2020</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Cancer Science</span> (2020).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1111/cas.14539" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 32 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2020">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Infrared microspectroscopy and imaging analysis of inflammatory and non-inflammatory breast cancer cells and their GAG secretome</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2020</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Molecules</span> (2G20).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.3390/molecules25184300" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 33 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2020">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Induction of heparanase via IL-10 correlates with a high infiltration of CD163⁺ M2-type tumor-associated macrophages in inflammatory breast carcinomas</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2020</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Matrix Biology Plus</span> (2020).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1016/j.mbplus.2020.100030" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 34 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2020">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Knockdown of Musashi RNA binding proteins decreases radioresistance but enhances cell motility and invasion in triple-negative breast cancer</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2020</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">International Journal of Molecular Sciences</span> (2020).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.3390/ijms21062169" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 35 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2020">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Inflammatory breast carcinoma: Elevated microRNA miR-181b-5p and reduced miR-200b-3p, miR-200c-3p, and miR-203a-3p expression as potential biomarkers with diagnostic value</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2020</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Biomolecules</span> (2020).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.3390/biom10071059" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 36 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2019">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Inflammatory breast cancer: Activation of the aryl hydrocarbon receptor and its target CYP1B1 correlates closely with Wnt5a/b–β-catenin signalling, the stem cell phenotype and disease progression</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2019</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Journal of Advanced Research</span> (2019).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1016/j.jare.2018.11.006" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 37 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2019">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Anti-proliferative effect of chitosan nanoparticles (extracted from crayfish Procambarus clarkii, Crustacea: Cambaridae) against MDA-MB-231 and SK-BR-3 human breast cancer cell lines</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2019</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">International Journal of Biological Macromolecules</span> (2019).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1016/j.ijbiomac.2018.12.151" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 38 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2019">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">The immunomodulatory role of tumor syndecan-1 (CD138) on ex vivo tumor microenvironmental CD4⁺ T cell polarization in inflammatory and non-inflammatory breast cancer patients</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2019</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">PLoS ONE</span> (2019).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1371/journal.pone.0217550" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 39 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2019">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Tumor microenvironmental plasmacytoid dendritic cells contribute to breast cancer lymph node metastasis via CXCR4/SDF-1 axis</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2019</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Breast Cancer Research and Treatment</span> (2019).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1007/s10549-019-05129-8" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 40 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2019">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">The regulatory role of syndecan-1 on human miR-222-3p expression in breast cancer cell lines</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2019</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">Egyptian Journal of Histology</span> (2019).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.21608/ejh.2019.6670.1054" target="_blank" rel="noopener">View publication</a>
-          </div>
-        </div>
-
-        <!-- Publication 41 -->
-        <div class="bg-white rounded-xl shadow-md p-4 border border-gray-100 more-publications-item hidden pub-item card-hover" data-year="2019">
-          <div class="flex flex-wrap items-start justify-between gap-2">
-            <div class="font-semibold text-dark-text pub-title flex-1">Aptasensor for quantifying pancreatic polypeptide.</div>
-            <span class="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-primary-blue font-semibold">2019</span>
-          </div>
-          <div class="text-xs text-muted-text mt-1">
-            Journal: <span class="pub-journal">ACS Omega</span> (2019).
-            <a class="text-primary-blue hover:underline" href="https://doi.org/10.1021/acsomega.8b03131" target="_blank" rel="noopener">View publication</a>
-          </div>
+        <div class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4" aria-label="Lab key metrics">
+          <div class="rounded-2xl bg-white/10 p-4 ring-1 ring-white/20"><div class="text-3xl font-black counter" data-target="41">0</div><div class="mt-1 text-xs font-bold uppercase tracking-wide text-cyan-100">Publications</div></div>
+          <div class="rounded-2xl bg-white/10 p-4 ring-1 ring-white/20"><div class="text-3xl font-black counter" data-target="7">0</div><div class="mt-1 text-xs font-bold uppercase tracking-wide text-cyan-100">Funded projects</div></div>
+          <div class="rounded-2xl bg-white/10 p-4 ring-1 ring-white/20"><div class="text-3xl font-black counter" data-target="3">0</div><div class="mt-1 text-xs font-bold uppercase tracking-wide text-cyan-100">Partners</div></div>
+          <div class="rounded-2xl bg-white/10 p-4 ring-1 ring-white/20"><div class="text-3xl font-black counter" data-target="5">0</div><div class="mt-1 text-xs font-bold uppercase tracking-wide text-cyan-100">Team members</div></div>
         </div>
       </div>
-      <!-- (Old bottom toggle button removed) -->
-    </section>
 
-    <section id="news" class="hero-max mx-auto px-4 py-8 fade-in">
-      <h2 class="text-2xl font-bold mb-4 text-primary-blue">News</h2>
-      <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 card-hover">
-        <p class="text-muted-text">No recent news or announcements at this time.</p>
+      <div class="reveal grid gap-4">
+        <article class="card rounded-[2rem] p-6">
+          <div class="flex flex-col items-center text-center">
+            <div class="relative">
+              <div class="absolute inset-0 animate-float rounded-full bg-cyan-200 blur-2xl"></div>
+              <img src="sherif-ibrahim.jpg" alt="Prof. Dr. Sherif Abdelaziz Ibrahim" class="relative h-36 w-36 rounded-full border-4 border-white object-cover shadow-soft" />
+            </div>
+            <p class="mt-5 text-xs font-black uppercase tracking-[.18em] text-brand-700">Head & Founder</p>
+            <h2 class="mt-2 text-2xl font-black tracking-tight text-slate-950">Prof. Dr. Sherif Abdelaziz Ibrahim</h2>
+            <p class="mt-2 text-sm font-semibold text-slate-600">Professor of Cell and Cancer Biology · Ph.D Münster, Germany</p>
+            <p class="mt-4 text-sm leading-7 text-slate-600">Research focus: inflammatory breast cancer, Syndecan-1, cancer stem cells, extracellular vesicles, and tumor microenvironment signatures.</p>
+          </div>
+        </article>
+        <article class="card rounded-[2rem] p-6">
+          <div class="flex items-start gap-4">
+            <div class="rounded-2xl bg-mint-100 p-3 text-brand-700" aria-hidden="true">✦</div>
+            <div>
+              <h2 class="text-xl font-black tracking-tight">Latest highlights</h2>
+              <ul class="mt-3 space-y-3 text-sm leading-6 text-slate-600">
+                <li><strong class="text-slate-900">Scientific Reports:</strong> SDC2 and FN as biomarkers for lymph node metastasis in breast cancer.</li>
+                <li><strong class="text-slate-900">STDF grant:</strong> extracellular vesicle-derived proteoglycans for breast cancer screening.</li>
+                <li><strong class="text-slate-900">Conference output:</strong> microRNA signatures in molecular biology and breast cancer.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
-    <!-- NEW: "For Students / Collaborators" Section (Suggestion 1.E) -->
-    <section id="opportunities" class="hero-max mx-auto px-4 py-8 fade-in">
-      <h2 class="text-2xl font-bold mb-4 text-primary-blue">Opportunities</h2>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 card-hover">
-          <h3 class="text-xl font-semibold text-dark-text mb-2">Prospective Students</h3>
-          <p class="text-muted-text mb-4">We are always looking for passionate and motivated students to join our team. If you are interested in our research, please get in touch.</p>
-          <a class="inline-flex items-center gap-2 px-4 py-2 text-primary-blue border border-primary-blue bg-white font-medium rounded-xl hover:bg-blue-50 transition duration-150" href="mailto:cmb.research.lab@gmail.com?subject=Prospective%20Student%20Inquiry">
-            Email the Lab
-          </a>
+    <section class="container-pro pb-4">
+      <div class="reveal glass flex flex-wrap items-center justify-center gap-2 rounded-[2rem] p-3 shadow-card">
+        <a href="#about" class="focus-ring rounded-full px-4 py-2 text-sm font-bold text-slate-600 hover:bg-white hover:text-brand-700">About</a>
+        <a href="#mission" class="focus-ring rounded-full px-4 py-2 text-sm font-bold text-slate-600 hover:bg-white hover:text-brand-700">Mission</a>
+        <a href="#vision" class="focus-ring rounded-full px-4 py-2 text-sm font-bold text-slate-600 hover:bg-white hover:text-brand-700">Vision</a>
+        <a href="#research" class="focus-ring rounded-full px-4 py-2 text-sm font-bold text-slate-600 hover:bg-white hover:text-brand-700">Research</a>
+        <a href="#projects" class="focus-ring rounded-full px-4 py-2 text-sm font-bold text-slate-600 hover:bg-white hover:text-brand-700">Projects</a>
+        <a href="#team" class="focus-ring rounded-full px-4 py-2 text-sm font-bold text-slate-600 hover:bg-white hover:text-brand-700">Team</a>
+        <a href="#publications" class="focus-ring rounded-full px-4 py-2 text-sm font-bold text-slate-600 hover:bg-white hover:text-brand-700">Publications</a>
+        <a href="#contact" class="focus-ring rounded-full px-4 py-2 text-sm font-bold text-slate-600 hover:bg-white hover:text-brand-700">Contact</a>
+      </div>
+    </section>
+
+    <section id="about" class="container-pro py-12 lg:py-16">
+      <div class="grid gap-6 lg:grid-cols-[.9fr_1.1fr]">
+        <div class="reveal">
+          <p class="section-kicker text-xs font-black uppercase text-brand-700">About the lab</p>
+          <h2 class="section-title mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">Molecular insight with clinical direction.</h2>
+          <p class="mt-4 text-base leading-8 text-slate-600">Founded in 2019 at the Department of Zoology, Faculty of Science, Cairo University, CMBRL focuses on mechanistic cancer biology and biomarker-oriented translational research.</p>
         </div>
-        <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 card-hover">
-          <h3 class="text-xl font-semibold text-dark-text mb-2">Collaborators & Partners</h3>
-          <p class="text-muted-text mb-4">Our work is enhanced by collaboration. We welcome partnerships with academic labs and industry leaders to tackle complex challenges together.</p>
-          <a class="inline-flex items-center gap-2 px-4 py-2 text-primary-blue border border-primary-blue bg-white font-medium rounded-xl hover:bg-blue-50 transition duration-150" href="mailto:cmb.research.lab@gmail.com?subject=Collaboration%20Inquiry">
-            Discuss Collaboration
-          </a>
+        <div class="reveal card rounded-[2rem] p-6 sm:p-8">
+          <div class="space-y-5 text-base leading-8 text-slate-700">
+            <p>The Cellular and Molecular Biosciences Research Laboratory (CMBRL) at Cairo University—founded and led by Prof. Dr. Sherif A. Ibrahim , Professor of Zoology (Cancer Cell Biology) and Egyptian leader of the GLYCANC Project—is dedicated to advancing our understanding of cancer biology at the molecular and cellular levels.</p><p>Prof. Ibrahim has secured competitive funding from EU Horizon 2020 to investigate the role of the cell-surface heparan sulfate proteoglycan Syndecan-1 (Sdc-1) and regulatory microRNAs in breast cancer progression. He has also led projects funded by DAAD, STDF, and ASRT. His pioneering work aims to define distinct molecular signatures and uncover novel mechanisms driving inflammatory breast cancer (IBC) and its tumor microenvironment, with emphasis on proteoglycans, cancer stem cells, and extracellular vesicles.</p>
+          </div>
+          <div class="mt-6 grid gap-3 sm:grid-cols-3">
+            <div class="rounded-2xl bg-brand-50 p-4 ring-1 ring-brand-100"><div class="text-sm font-black text-brand-700">Founded</div><div class="mt-1 text-2xl font-black">2019</div></div>
+            <div class="rounded-2xl bg-mint-50 p-4 ring-1 ring-mint-100"><div class="text-sm font-black text-mint-700">Location</div><div class="mt-1 text-sm font-bold text-slate-700">Giza, Egypt</div></div>
+            <div class="rounded-2xl bg-amber-50 p-4 ring-1 ring-amber-100"><div class="text-sm font-black text-amber-700">Focus</div><div class="mt-1 text-sm font-bold text-slate-700">Cancer biology</div></div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="contact" class="hero-max mx-auto px-4 py-8 fade-in">
-      <h2 class="text-2xl font-bold mb-4 text-primary-blue">Contact</h2>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 card-hover">
-          <p class="mb-2">
-            <strong class="text-dark-text">Email:</strong> 
-            <a class="text-primary-blue hover:underline" href="mailto:cmb.research.lab@gmail.com">cmb.research.lab@gmail.com</a>
-          </p>
-          <p class="mb-2">
-            <strong class="text-dark-text">Address:</strong> Department of Zoology, Faculty of Science, Cairo University, Giza, Egypt
-          </p>
-          <p>
-            <strong class="text-dark-text">Social:</strong>
-            <a class="text-primary-blue hover:underline" href="https://www.linkedin.com/in/cmbrl/">LinkedIn</a> •
-            <a class="text-primary-blue hover:underline" href="https://www.facebook.com/CellularMolecularBiosciencesResearchLab/">Facebook</a> •
-            <a class="text-primary-blue hover:underline" href="https://www.researchgate.net/lab/Sherif-Abdelaziz-Ibrahim-Lab?_tp=eyJjb250ZXh0Ijp7InBhZ2UiOiJwcm9maWxlIiwicHJldmlvdXNQYWdlIjoicHJvZmlsZSIsInBvc2l0aW9uIjoicGFnZUNvbnRlbnQifX0">ResearchGate</a>
-          </p>
+    <section id="mission" class="container-pro py-8">
+      <div class="grid gap-6 lg:grid-cols-2">
+        <article class="reveal card rounded-[2rem] p-6 sm:p-8">
+          <p class="section-kicker text-xs font-black uppercase text-brand-700">Mission</p>
+          <h2 class="section-title mt-3 text-3xl font-black tracking-tight">Rigorous, reproducible, translatable research.</h2>
+          <p class="mt-4 text-base leading-8 text-slate-600">To elucidate the molecular circuitry of cancer—with emphasis on breast cancer and related conditions such as endometriosis—by discovering robust early-detection biomarkers and actionable therapeutic targets, and by decoding the signaling networks and microenvironmental cues that drive initiation, progression, and treatment resistance. We conduct rigorously reproducible research using state-of-the-art cellular, molecular, and multi-omics technologies, translating mechanistic insight into clinically relevant strategies for patients in Egypt and worldwide.</p>
+        </article>
+        <article id="vision" class="reveal card rounded-[2rem] p-6 sm:p-8">
+          <p class="section-kicker text-xs font-black uppercase text-brand-700">Vision</p>
+          <h2 class="section-title mt-3 text-3xl font-black tracking-tight">Earlier detection. More precise treatment.</h2>
+          <p class="mt-4 text-base leading-8 text-slate-600">A future where breast cancer is detected earlier, treated more precisely, and prevented more effectively through validated biomarkers, targeted therapeutics, and deep mechanistic understanding—bridging bench discoveries to bedside impact for communities in Egypt and beyond.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="research" class="container-pro py-12 lg:py-16">
+      <div class="reveal flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <div>
+          <p class="section-kicker text-xs font-black uppercase text-brand-700">Research areas</p>
+          <h2 class="section-title mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">Three connected discovery tracks.</h2>
+        </div>
+        <p class="max-w-xl text-sm leading-7 text-slate-600">From molecular mechanisms to patient-relevant biomarkers, the lab connects cellular biology, extracellular matrix signaling, and clinical translation.</p>
+      </div>
+      <div id="research-grid" class="mt-7 grid gap-5 md:grid-cols-3"></div>
+    </section>
+
+    <section id="projects" class="container-pro py-12 lg:py-16">
+      <div class="reveal flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <div>
+          <p class="section-kicker text-xs font-black uppercase text-brand-700">Projects & collaborations</p>
+          <h2 class="section-title mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">Funded research timeline.</h2>
+        </div>
+        <button id="project-toggle" type="button" aria-expanded="false" class="focus-ring rounded-2xl bg-white px-5 py-3 text-sm font-black text-brand-700 shadow-card ring-1 ring-slate-200 hover:bg-brand-50">Show 4 more projects</button>
+      </div>
+      <div class="relative mt-8 pl-6 sm:pl-8">
+        <div class="timeline-line absolute left-2 top-2 h-full w-px sm:left-3"></div>
+        <div id="project-list" class="space-y-4"></div>
+      </div>
+    </section>
+
+    <section id="team" class="container-pro py-12 lg:py-16">
+      <div class="reveal flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <div>
+          <p class="section-kicker text-xs font-black uppercase text-brand-700">Research team</p>
+          <h2 class="section-title mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">People behind the science.</h2>
+        </div>
+        <p class="max-w-lg text-sm leading-7 text-slate-600">A compact team directory with consistent image treatment, readable roles, and responsive cards.</p>
+      </div>
+      <div id="team-grid" class="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"></div>
+    </section>
+
+
+    <section id="publications" class="container-pro py-12 lg:py-16">
+      <div class="reveal rounded-[2rem] bg-gradient-to-br from-brand-900 via-brand-800 to-brand-700 p-6 text-white shadow-soft ring-1 ring-cyan-200/20 sm:p-8">
+        <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p class="section-kicker text-xs font-black uppercase text-cyan-200">Publications</p>
+            <h2 class="section-title mt-3 text-3xl font-black tracking-tight sm:text-4xl">Searchable research output.</h2>
+            <p class="mt-3 max-w-2xl text-sm leading-7 text-slate-300">Filter by year, journal, title, or keyword. The list is generated from structured data, making it easier to maintain than repeated static cards.</p>
+          </div>
+          <div class="grid grid-cols-2 gap-3 text-center sm:grid-cols-3">
+            <div class="rounded-2xl bg-white/10 p-4 ring-1 ring-white/10"><div class="text-3xl font-black">41</div><div class="text-xs font-bold uppercase tracking-wide text-slate-300">Total</div></div>
+            <div class="rounded-2xl bg-white/10 p-4 ring-1 ring-white/10"><div class="text-3xl font-black">2025</div><div class="text-xs font-bold uppercase tracking-wide text-slate-300">Latest</div></div>
+            <div class="col-span-2 rounded-2xl bg-white/10 p-4 ring-1 ring-white/10 sm:col-span-1"><div class="text-3xl font-black">34</div><div class="text-xs font-bold uppercase tracking-wide text-slate-300">Journals</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal mt-6 grid gap-4 rounded-[2rem] bg-white/90 p-4 shadow-card ring-1 ring-slate-200 backdrop-blur md:grid-cols-[1fr_180px_190px]">
+        <label class="block">
+          <span class="mb-1 block text-xs font-black uppercase tracking-wide text-slate-500">Search title or journal</span>
+          <input id="pub-search" type="search" placeholder="Try: Syndecan-1, breast cancer, PLOS ONE..." class="focus-ring w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-800 shadow-sm outline-none" />
+        </label>
+        <label class="block">
+          <span class="mb-1 block text-xs font-black uppercase tracking-wide text-slate-500">Year</span>
+          <select id="pub-year" class="focus-ring w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-800 shadow-sm outline-none"></select>
+        </label>
+        <label class="block">
+          <span class="mb-1 block text-xs font-black uppercase tracking-wide text-slate-500">Sort</span>
+          <select id="pub-sort" class="focus-ring w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-800 shadow-sm outline-none">
+            <option value="year-desc">Latest first</option>
+            <option value="year-asc">Oldest first</option>
+            <option value="title-asc">Title A–Z</option>
+            <option value="journal-asc">Journal A–Z</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="mt-5 flex flex-wrap items-center justify-between gap-3">
+        <div id="pub-count" class="text-sm font-bold text-slate-600"></div>
+        <button id="pub-clear" class="focus-ring rounded-2xl bg-white px-4 py-2 text-sm font-black text-brand-700 shadow-sm ring-1 ring-slate-200 hover:bg-brand-50">Clear filters</button>
+      </div>
+      <div id="publication-list" class="mt-5 grid gap-4"></div>
+      <div class="mt-6 flex justify-center">
+        <button id="pub-show-more" class="focus-ring rounded-2xl bg-brand-700 px-6 py-3 text-sm font-black text-white shadow-card hover:bg-brand-900">Show more publications</button>
+      </div>
+    </section>
+    <section id="news" class="container-pro py-8">
+      <div class="reveal card rounded-[2rem] p-6 sm:p-8">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p class="section-kicker text-xs font-black uppercase text-brand-700">News</p>
+            <h2 class="section-title mt-3 text-3xl font-black tracking-tight">Announcements</h2>
+            <p class="mt-3 text-slate-600">No recent news or announcements at this time.</p>
+          </div>
+          <div class="rounded-3xl bg-amber-50 p-5 text-sm font-bold text-amber-700 ring-1 ring-amber-100">Updates can be added here as cards without changing the page structure.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="opportunities" class="container-pro py-12 lg:py-16">
+      <div class="reveal grid gap-5 md:grid-cols-2">
+        <article class="card rounded-[2rem] p-6 sm:p-8">
+          <p class="section-kicker text-xs font-black uppercase text-brand-700">Opportunities</p>
+          <h2 class="mt-3 text-2xl font-black tracking-tight">Prospective students</h2>
+          <p class="mt-3 text-base leading-8 text-slate-600">We are always looking for passionate and motivated students to join our team. If you are interested in our research, please get in touch.</p>
+          <a href="mailto:cmb.research.lab@gmail.com?subject=Prospective%20Student%20Inquiry" class="focus-ring mt-5 inline-flex rounded-2xl bg-brand-700 px-5 py-3 text-sm font-black text-white shadow-card hover:bg-brand-900">Email the Lab</a>
+        </article>
+        <article class="card rounded-[2rem] p-6 sm:p-8">
+          <p class="section-kicker text-xs font-black uppercase text-brand-700">Partnerships</p>
+          <h2 class="mt-3 text-2xl font-black tracking-tight">Collaborators & partners</h2>
+          <p class="mt-3 text-base leading-8 text-slate-600">Our work is enhanced by collaboration. We welcome partnerships with academic labs and industry leaders to tackle complex challenges together.</p>
+          <a href="mailto:cmb.research.lab@gmail.com?subject=Collaboration%20Inquiry" class="focus-ring mt-5 inline-flex rounded-2xl bg-white px-5 py-3 text-sm font-black text-brand-700 shadow-sm ring-1 ring-slate-200 hover:bg-brand-50">Discuss Collaboration</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="container-pro py-12 lg:py-16">
+      <div class="reveal overflow-hidden rounded-[2rem] bg-gradient-to-br from-brand-900 via-brand-800 to-cyan-700 text-white shadow-soft ring-1 ring-cyan-200/20">
+        <div class="grid gap-0 lg:grid-cols-[1fr_.9fr]">
+          <div class="p-6 sm:p-8 lg:p-10">
+            <p class="section-kicker text-xs font-black uppercase text-cyan-200">Contact</p>
+            <h2 class="section-title mt-3 text-3xl font-black tracking-tight sm:text-4xl">Start a scientific conversation.</h2>
+            <p class="mt-4 max-w-xl text-base leading-8 text-slate-300">For proposals, collaborations, visiting researcher requests, or student inquiries, contact the lab by email.</p>
+            <div class="mt-7 grid gap-3">
+              <a href="mailto:cmb.research.lab@gmail.com" class="focus-ring rounded-2xl bg-white px-5 py-4 text-sm font-black text-brand-900 shadow-card">cmb.research.lab@gmail.com</a>
+              <div class="rounded-2xl bg-white/10 p-5 text-sm leading-7 text-slate-200 ring-1 ring-white/10">Department of Zoology, Faculty of Science, Cairo University, Giza, Egypt</div>
+            </div>
+          </div>
+          <div class="bg-white/10 p-6 sm:p-8 lg:p-10">
+            <h3 class="text-xl font-black">Online profiles</h3>
+            <div class="mt-5 grid gap-3">
+              <a href="https://www.linkedin.com/in/cmbrl/" target="_blank" rel="noopener" class="focus-ring rounded-2xl bg-white/10 px-5 py-4 text-sm font-black text-white ring-1 ring-white/10 hover:bg-white/20">LinkedIn</a>
+              <a href="https://www.facebook.com/CellularMolecularBiosciencesResearchLab/" target="_blank" rel="noopener" class="focus-ring rounded-2xl bg-white/10 px-5 py-4 text-sm font-black text-white ring-1 ring-white/10 hover:bg-white/20">Facebook</a>
+              <a href="https://www.researchgate.net/lab/Sherif-Abdelaziz-Ibrahim-Lab?_tp=eyJjb250ZXh0Ijp7InBhZ2UiOiJwcm9maWxlIiwicHJldmlvdXNQYWdlIjoicHJvZmlsZSIsInBvc2l0aW9uIjoicGFnZUNvbnRlbnQifX0" target="_blank" rel="noopener" class="focus-ring rounded-2xl bg-white/10 px-5 py-4 text-sm font-black text-white ring-1 ring-white/10 hover:bg-white/20">ResearchGate</a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="hero-max mx-auto px-4 py-8 mt-10 border-t border-gray-200 text-center text-sm text-muted-text">
-    <div>© <span id="year"></span> Cellular & Molecular Biosciences Research Laboratory.</div>
+  <footer class="container-pro border-t border-slate-200 py-8 text-center text-sm font-semibold text-slate-500">
+    © <span id="year"></span> Cellular & Molecular Biosciences Research Laboratory. Cairo University.
   </footer>
 
-  <!-- NEW: Back to Top Button (Suggestion 2.4) -->
-  <button
-    id="back-to-top"
-    aria-label="Back to top"
-    class="fixed bottom-6 right-6 z-40 hidden items-center justify-center w-10 h-10 rounded-full bg-primary-blue text-white shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5"
-  >
-    <!-- Using a simple arrow icon -->
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+  <button id="back-to-top" aria-label="Back to top" class="focus-ring fixed bottom-5 right-5 z-40 hidden h-12 w-12 items-center justify-center rounded-2xl bg-brand-700 text-white shadow-soft hover:bg-brand-900">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
   </button>
 
-
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    const publications = [{"n": 1, "year": "2025", "title": "Glypican3 and serglycin as potential biomarkers involved in the pathogenesis of ovarian endometriosis", "journal": "Tissue and Cell", "url": "https://doi.org/10.1016/j.tice.2025.102867"}, {"n": 2, "year": "2025", "title": "Designing and fabrication of BIRC5-mRNA-based biosensor for early breast cancer diagnosis using a nanostructured (CeO₂-Ru@AuNPs-CNTs)-lab-on-chip", "journal": "Biochemical Engineering Journal", "url": "https://doi.org/10.1016/j.bej.2025.109754"}, {"n": 3, "year": "2025", "title": "Cicer arietinum extract as antitumor and protective agent against Ehrlich solid carcinoma-bearing mice", "journal": "BMC Complementary Medicine and Therapies", "url": "https://doi.org/10.1186/s12906-025-05061-z"}, {"n": 4, "year": "2025", "title": "Liposomal delivery of Allolobophora caliginosa coelomic fluid attenuates myocardial infarction by suppressing oxidative damage, inflammation, and apoptosis", "journal": "Applied Biochemistry and Biotechnology", "url": "https://doi.org/10.1007/s12010-025-05340-y"}, {"n": 5, "year": "2025", "title": "Chrysin-loaded PLGA nanoparticles alleviate the implantation of endometriotic lesions via attenuation of peritoneal inflammation and downregulating NF-κB activation-driven expression of angiogenic factors", "journal": "Journal of Drug Delivery Science and Technology", "url": "https://doi.org/10.1016/j.jddst.2025.106984"}, {"n": 6, "year": "2025", "title": "SDC2 and FN as cargo proteins in circulating extracellular vesicles in obese breast cancer patients with lymph node metastasis", "journal": "Scientific Reports", "url": "https://doi.org/10.1038/s41598-025-17638-2"}, {"n": 7, "year": "2025", "title": "Calothrixin B by docking JAK2 is a potential therapeutic inhibitor for pancreatic ductal adenocarcinoma", "journal": "Journal of Pharmacy and Pharmacology", "url": "https://doi.org/10.1093/jpp/rgae149"}, {"n": 8, "year": "2025", "title": "The clinical potential of PDL-1 pathway and some related micro-RNAs as promising diagnostic markers for breast cancer", "journal": "Molecular Medicine", "url": "https://doi.org/10.1186/s10020-025-01137-1"}, {"n": 9, "year": "2025", "title": "EXT1 as an independent prognostic biomarker in breast cancer: Its correlation with immune infiltration and clinicopathological parameters", "journal": "Immuno.", "url": "https://doi.org/10.3390/immuno5010001"}, {"n": 10, "year": "2025", "title": "Integrative multi-omics analysis of autism spectrum disorder reveals unique microbial macromolecules interactions", "journal": "Journal of Advanced Research", "url": "https://doi.org/10.1016/j.jare.2025.01.036"}, {"n": 11, "year": "2024", "title": "Curcumin, piperine and taurine combination enhances the efficacy of transarterial chemoembolization therapy in patients with intermediate stage hepatocellular carcinoma: A pilot study", "journal": "Asian Pacific Journal of Cancer Prevention", "url": "https://doi.org/10.31557/APJCP.2024.25.5.1589"}, {"n": 12, "year": "2024", "title": "Compartmental syndecan-1 (CD138) expression as a novel prognostic marker in triple-negative metaplastic breast cancer", "journal": "Pathology Research and Practice", "url": "https://doi.org/10.1016/j.prp.2023.154994"}, {"n": 13, "year": "2023", "title": "Tumor suppressor miR-218 directly targets epidermal growth factor receptor (EGFR) expression in triple-negative breast cancer, sensitizing cells to irradiation", "journal": "Journal of Cancer Research and Clinical Oncology", "url": "https://doi.org/10.1007/s00432-023-04750-x"}, {"n": 14, "year": "2023", "title": "Anticancer activity of new bis-(3-(thiophen-2-yl)-1H-pyrazol-4-yl)chalcones: Synthesis, in silico, and in vitro studies", "journal": "Polycyclic Aromatic Compounds", "url": "https://doi.org/10.1080/10406638.2022.2046616"}, {"n": 15, "year": "2023", "title": "Cytotoxic activity, apoptosis induction and cell cycle arrest in human breast cancer (MCF7) cells by a novel fluorinated tetrahydro-[1,2,4]triazolo[3,4-a]isoquinolin chalcone", "journal": "Polycyclic Aromatic Compounds", "url": "https://doi.org/10.1080/10406638.2021.2014535"}, {"n": 16, "year": "2023", "title": "Revisiting the syndecans: Master signaling regulators with prognostic and targetable therapeutic values in breast carcinoma", "journal": "Cancers", "url": "https://doi.org/10.3390/cancers15061794"}, {"n": 17, "year": "2023", "title": "Chalcones: Promising therapeutic agents targeting key players and signaling pathways regulating the hallmarks of cancer", "journal": "Chemico-Biological Interactions", "url": "https://doi.org/10.1016/j.cbi.2022.110297"}, {"n": 18, "year": "2023", "title": "Yttrium oxide nanoparticles induce cytotoxicity, genotoxicity, apoptosis, and ferroptosis in the human triple-negative breast cancer MDA-MB-231 cells", "journal": "BMC Cancer", "url": "https://doi.org/10.1186/s12885-023-11649-w"}, {"n": 19, "year": "2023", "title": "Editorial: Cancer stem cells as attractive targets for breast cancer therapy", "journal": "Frontiers in Oncology", "url": "https://doi.org/10.3389/fonc.2023.1151742"}, {"n": 20, "year": "2022", "title": "Synthesis and anticancer activities of novel bis-chalcones incorporating the 1,3-diphenyl-1H-pyrazole moiety: In silico and in vitro studies", "journal": "Letters in Drug Design and Discovery", "url": "https://doi.org/10.2174/1570180819666220301151631"}, {"n": 21, "year": "2022", "title": "Role of adipose tissue-derived cytokines in the progression of inflammatory breast cancer in patients with obesity", "journal": "Lipids in Health and Disease", "url": "https://doi.org/10.1186/s12944-022-01678-y"}, {"n": 22, "year": "2022", "title": "Differential impact of membrane-bound and soluble forms of the prognostic marker syndecan-1 on the invasiveness, migration, apoptosis, and proliferation of cervical cancer cells", "journal": "Frontiers in Oncology", "url": "https://doi.org/10.3389/fonc.2022.803899"}, {"n": 23, "year": "2022", "title": "[1,2,4]Triazolo[3,4-a]isoquinoline chalcone derivative exhibits anticancer activity via induction of oxidative stress, DNA damage, and apoptosis in Ehrlich solid carcinoma-bearing mice", "journal": "Naunyn-Schmiedeberg’s Archives of Pharmacology", "url": "https://doi.org/10.1007/s00210-022-02269-5"}, {"n": 24, "year": "2021", "title": "EGFR-dependent extracellular matrix protein interactions might light a candle in cell behavior of non-small cell lung cancer", "journal": "Frontiers in Oncology", "url": "https://doi.org/10.3389/fonc.2021.766659"}, {"n": 25, "year": "2021", "title": "Syndecan-1 promotes angiogenesis in triple-negative breast cancer through the prognostically relevant tissue factor pathway and additional angiogenic routes", "journal": "Cancers", "url": "https://doi.org/10.3390/cancers13102318"}, {"n": 26, "year": "2021", "title": "Impact of type 2 diabetes mellitus on the immunoregulatory characteristics of adipose tissue-derived mesenchymal stem cells", "journal": "International Journal of Biochemistry and Cell Biology", "url": "https://doi.org/10.1016/j.biocel.2021.106072"}, {"n": 27, "year": "2021", "title": "Small extracellular vesicle-encapsulated miR-181b-5p, miR-222-3p and let-7a-5p: Next generation plasma biopsy-based diagnostic biomarkers for inflammatory breast cancer", "journal": "PLoS ONE", "url": "https://doi.org/10.1371/journal.pone.0250642"}, {"n": 28, "year": "2021", "title": "The heparan sulfate proteoglycan syndecan-1 regulates colon cancer stem cell function via a focal adhesion kinase–Wnt signaling axis", "journal": "FEBS Journal", "url": "https://doi.org/10.1111/febs.15356"}, {"n": 29, "year": "2021", "title": "Cell behavior of non-small cell lung cancer is at EGFR and microRNAs hands", "journal": "International Journal of Molecular Sciences", "url": "https://doi.org/10.3390/ijms222212496"}, {"n": 30, "year": "2021", "title": "Role of syndecan-1 in cancer stem cells.", "journal": "Biology of Extracellular Matrix", "url": "https://doi.org/10.1007/978-3-030-73453-4_12"}, {"n": 31, "year": "2020", "title": "HS2ST1-dependent signaling pathways determine breast cancer cell viability, matrix interactions, and invasive behavior", "journal": "Cancer Science", "url": "https://doi.org/10.1111/cas.14539"}, {"n": 32, "year": "2020", "title": "Infrared microspectroscopy and imaging analysis of inflammatory and non-inflammatory breast cancer cells and their GAG secretome", "journal": "Molecules", "url": "https://doi.org/10.3390/molecules25184300"}, {"n": 33, "year": "2020", "title": "Induction of heparanase via IL-10 correlates with a high infiltration of CD163⁺ M2-type tumor-associated macrophages in inflammatory breast carcinomas", "journal": "Matrix Biology Plus", "url": "https://doi.org/10.1016/j.mbplus.2020.100030"}, {"n": 34, "year": "2020", "title": "Knockdown of Musashi RNA binding proteins decreases radioresistance but enhances cell motility and invasion in triple-negative breast cancer", "journal": "International Journal of Molecular Sciences", "url": "https://doi.org/10.3390/ijms21062169"}, {"n": 35, "year": "2020", "title": "Inflammatory breast carcinoma: Elevated microRNA miR-181b-5p and reduced miR-200b-3p, miR-200c-3p, and miR-203a-3p expression as potential biomarkers with diagnostic value", "journal": "Biomolecules", "url": "https://doi.org/10.3390/biom10071059"}, {"n": 36, "year": "2019", "title": "Inflammatory breast cancer: Activation of the aryl hydrocarbon receptor and its target CYP1B1 correlates closely with Wnt5a/b–β-catenin signalling, the stem cell phenotype and disease progression", "journal": "Journal of Advanced Research", "url": "https://doi.org/10.1016/j.jare.2018.11.006"}, {"n": 37, "year": "2019", "title": "Anti-proliferative effect of chitosan nanoparticles (extracted from crayfish Procambarus clarkii, Crustacea: Cambaridae) against MDA-MB-231 and SK-BR-3 human breast cancer cell lines", "journal": "International Journal of Biological Macromolecules", "url": "https://doi.org/10.1016/j.ijbiomac.2018.12.151"}, {"n": 38, "year": "2019", "title": "The immunomodulatory role of tumor syndecan-1 (CD138) on ex vivo tumor microenvironmental CD4⁺ T cell polarization in inflammatory and non-inflammatory breast cancer patients", "journal": "PLoS ONE", "url": "https://doi.org/10.1371/journal.pone.0217550"}, {"n": 39, "year": "2019", "title": "Tumor microenvironmental plasmacytoid dendritic cells contribute to breast cancer lymph node metastasis via CXCR4/SDF-1 axis", "journal": "Breast Cancer Research and Treatment", "url": "https://doi.org/10.1007/s10549-019-05129-8"}, {"n": 40, "year": "2019", "title": "The regulatory role of syndecan-1 on human miR-222-3p expression in breast cancer cell lines", "journal": "Egyptian Journal of Histology", "url": "https://doi.org/10.21608/ejh.2019.6670.1054"}, {"n": 41, "year": "2019", "title": "Aptasensor for quantifying pancreatic polypeptide.", "journal": "ACS Omega", "url": "https://doi.org/10.1021/acsomega.8b03131"}];
+    const projects = [{"title": "Proteomic profiling of exosomes: Discovery of novel diagnostic biomarkers for lymph node metastasis in breast cancer", "period": "2022–2025", "pi": "Dr. Sherif A. Ibrahim", "funding": "ASRT"}, {"title": "Extracellular vesicle-derived proteoglycans as non-invasive liquid biopsy-based cancer biomarkers: Towards novel breast cancer screening", "period": "2022–2025", "pi": "Dr. Hebatallah Hassan", "coPi": "Dr. Sherif A. Ibrahim", "funding": "STDF"}, {"title": "Syndecan-1 as a novel therapeutic target for putative stem cells in inflammatory breast cancer", "period": "2014–2017", "pi": "Dr. Sherif A. Ibrahim", "funding": "STDF"}, {"title": "MicroRNA signatures as potential biomarkers and therapeutic targets in inflammatory and non-inflammatory breast cancer Egyptian patients", "period": "2016–2017", "pi": "Dr. Sherif A. Ibrahim", "funding": "STDF"}, {"title": "Matrix glycans as multifunctional pathogenesis factors and therapeutic targets in cancer", "period": "2015–2019", "pi": "Prof. Martin Götte", "funding": "EU H2020-MSCA-RISE"}, {"title": "Syndecan-1 as a modulator of exosome-mediated microRNA function in inflammatory breast cancer", "period": "2015", "pi": "Prof. Martin Götte", "funding": "DAAD"}, {"title": "Syndecan-1 in inflammation", "period": "2013–2014", "pi": "Prof. Martin Götte", "funding": "DAAD"}];
+    const team = [{"name": "Prof. Dr. Sherif Abdelaziz Ibrahim", "role": "Professor of Cancer Cell Biology • Head & Founder", "image": "sherif-ibrahim.jpg", "alt": "Headshot of Prof. Dr. Sherif Abdelaziz Ibrahim"}, {"name": "Dr. Hebatallah Hassan", "role": "Associate Professor • Co-PI", "image": "logo.png.png", "alt": "Headshot of Dr. Hebatallah Hassan"}, {"name": "Mr. Amr Ahmed WalyEldden", "role": "PhD Student • Senior Researcher", "image": "amr-walyeldden.jpg.jpg", "alt": "Headshot of Mr. Amr Ahmed WalyEldden"}, {"name": "Ms. Liali Yousef Talat", "role": "PhD Student • Senior Researcher", "image": "liali-yousef-talat.jpg.jpeg", "alt": "Headshot of Ms. Liali Yousef Talat"}, {"name": "Mrs. Maysaa Maher", "role": "MSc Student • Junior Researcher", "image": "logo.png.png", "alt": "Headshot of Mrs. Maysaa Maher"}];
+    const researchAreas = [{"label": "Cancer Research", "title": "Biomarker Discovery & Therapeutic Targeting", "text": "We focus on identifying molecular biomarkers for early detection and uncovering novel therapeutic targets that drive tumor progression, with emphasis on inflammatory breast cancer."}, {"label": "Cell Biology", "title": "Signaling & Microenvironment", "text": "Our work explores cellular signaling pathways, extracellular matrix interactions, and mechanisms of cell–cell communication shaping cancer progression and metastasis."}, {"label": "Human Biology", "title": "Clinical Translation", "text": "We link laboratory discoveries to clinical outcomes, integrating molecular and proteomic insights to improve patient diagnosis, treatment, and prognosis."}];
 
-    // --- SCROLL PROGRESS BAR ---
-    function updateProgressBar() {
-        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (winScroll / height) * 100;
-        document.getElementById("progress-bar").style.width = scrolled + "%";
-    }
+    const $ = (selector, root = document) => root.querySelector(selector);
+    const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
 
-    window.onscroll = function() {
-        updateProgressBar();
-    };
-    updateProgressBar(); // Initialize width on load
+    const escapeHTML = (value) => String(value ?? '').replace(/[&<>'"]/g, (char) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+    }[char]));
 
-    // --- GENERIC TOGGLE FUNCTIONALITY (Projects only) ---
-    function setupToggleList(buttonId, itemClass) {
-        const button = document.getElementById(buttonId);
-        const listContainer = button.closest('section').querySelector('.relative.pl-6'); // Updated selector for timeline
-        
-        let expanded = false;
-        
-        function getVisibleHiddenCount() {
-            const currentHiddenItems = Array.from(listContainer.querySelectorAll(`.${itemClass}.hidden`));
-            return currentHiddenItems.filter(item => item.style.display !== 'none').length;
-        }
-
-        function updateButtonText() {
-            const type = button.getAttribute('data-type');
-            const count = getVisibleHiddenCount();
-            
-            // --- FIX STARTS HERE ---
-            // This logic was missing, causing the function to be incomplete.
-            if (count === 0 && !expanded) {
-                button.classList.add('hidden');
-                return;
-            } else {
-                button.classList.remove('hidden');
-            }
-
-            if (expanded) {
-                button.innerHTML = `Show Less ${type}`;
-            } else {
-                button.innerHTML = `Show ${count} more ${type}`;
-            }
-        } // <--- This closing brace was missing, causing the SyntaxError
-        // --- FIX ENDS HERE ---
-
-        button.addEventListener('click', () => {
-            expanded = !expanded;
-            
-            const itemsToToggle = Array.from(listContainer.querySelectorAll(`.${itemClass}`));
-
-            itemsToToggle.forEach(item => {
-                if (item.style.display !== 'none') {
-                    item.classList.toggle('hidden', !expanded);
-                }
-            });
-            updateButtonText();
-        });
-        
-        button.updateText = () => {
-             if (expanded) {
-                 expanded = false;
-             }
-             
-             const allToggleableItems = Array.from(listContainer.querySelectorAll(`.${itemClass}`));
-             
-             allToggleableItems.forEach(item => {
-                 if (item.style.display !== 'none') {
-                     item.classList.add('hidden');
-                 }
-             });
-             
-             updateButtonText();
-        };
-
-        updateButtonText();
-    }
-
-    // --- PUBLICATION SEARCH/SORT/FILTER + SHOW MORE FUNCTIONALITY ---
-
-    const publicationList = document.getElementById('publication-list');
-    const pubItems = Array.from(publicationList.querySelectorAll('.pub-item'));
-    const pubToggleBtn = document.getElementById('toggle-publications-btn');
-    const pubSearch = document.getElementById('pub-search');
-    const pubSort = document.getElementById('pub-sort');
-    const pubFilterYear = document.getElementById('pub-filter-year');
-
-    let currentFilteredItems = [...pubItems];
-    let pubsExpanded = false; // false = show first N only, true = show all
-    const VISIBLE_COUNT = 3;  // how many publications to show before "Show more"
-
-    // Extract unique years for the filter dropdown
-    const years = [...new Set(
-      pubItems.map(item => {
-        let year = item.getAttribute('data-year');
-        // Fix any typo’ed years, just in case
-        if (year === '2B023') {
-          item.setAttribute('data-year', '2023');
-          year = '2023';
-        }
-        if (year === '201D9') {
-          item.setAttribute('data-year', '2019');
-          year = '2019';
-        }
-        return year;
-      })
-    )].sort((a, b) => b - a); // Sort descending
-
-    years.forEach(year => {
-      const option = document.createElement('option');
-      option.value = year;
-      option.textContent = year;
-      pubFilterYear.appendChild(option);
+    document.addEventListener('DOMContentLoaded', () => {
+      $('#year').textContent = new Date().getFullYear();
+      renderResearchAreas();
+      renderTeam();
+      renderProjects();
+      setupPublications();
+      setupNavigation();
+      setupCounters();
+      setupReveal();
+      setupBackToTop();
     });
+
+    function renderResearchAreas() {
+      const icons = ['🧬', '🔬', '🧪'];
+      $('#research-grid').innerHTML = researchAreas.map((area, index) => `
+        <article class="reveal card research-card rounded-[2rem] p-6">
+          <div class="research-icon flex h-12 w-12 items-center justify-center rounded-2xl text-2xl" aria-hidden="true">${icons[index] || '✦'}</div>
+          <p class="mt-5 text-xs font-black uppercase tracking-[.16em] text-brand-700">${escapeHTML(area.label)}</p>
+          <h3 class="mt-2 text-xl font-black tracking-tight text-slate-950">${escapeHTML(area.title)}</h3>
+          <p class="mt-3 text-sm leading-7 text-slate-600">${escapeHTML(area.text)}</p>
+        </article>`).join('');
+    }
+
+    function renderTeam() {
+      $('#team-grid').innerHTML = team.map((member) => `
+        <article class="reveal card team-card group rounded-[2rem] p-5">
+          <div class="flex items-center gap-4">
+            <img src="${escapeHTML(member.image)}" alt="${escapeHTML(member.alt || member.name)}" loading="lazy" onerror="this.src='logo.png.png'" class="h-20 w-20 shrink-0 rounded-3xl border border-brand-100 bg-white object-cover p-1 shadow-sm transition group-hover:scale-[1.03]" />
+            <div>
+              <h3 class="text-lg font-black leading-tight tracking-tight text-slate-950">${escapeHTML(member.name)}</h3>
+              <p class="mt-2 text-base font-medium leading-7 text-slate-600">${escapeHTML(member.role)}</p>
+            </div>
+          </div>
+        </article>`).join('');
+    }
+
+    let showAllProjects = false;
+
+    function renderProjects() {
+      const hiddenCount = Math.max(projects.length - 3, 0);
+      const visibleProjects = showAllProjects ? projects : projects.slice(0, 3);
+
+      $('#project-list').innerHTML = visibleProjects.map((project, index) => {
+        const piLine = project.coPi
+          ? `PI: ${escapeHTML(project.pi)} • Co-PI: ${escapeHTML(project.coPi)}`
+          : `PI: ${escapeHTML(project.pi)}`;
+
+        return `
+        <article class="relative project-entry">
+          <div class="absolute -left-[1.38rem] top-7 h-4 w-4 rounded-full border-4 border-white bg-brand-600 shadow-card sm:-left-[1.62rem]"></div>
+          <div class="card project-card rounded-[1.5rem] p-5">
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <div class="text-xs font-black uppercase tracking-[.14em] text-brand-700">Project ${index + 1}</div>
+                <h3 class="mt-2 text-lg font-black leading-snug tracking-tight text-slate-950">${escapeHTML(project.title)}</h3>
+              </div>
+              <span class="inline-flex shrink-0 rounded-full bg-brand-50 px-3 py-1 text-xs font-black text-brand-700 ring-1 ring-brand-100">${escapeHTML(project.period)}</span>
+            </div>
+            <div class="mt-4 grid gap-2 text-base font-medium leading-7 text-slate-600 sm:grid-cols-2">
+              <p>${piLine}</p>
+              <p><span class="font-bold text-slate-700">Funding:</span> ${escapeHTML(project.funding)}</p>
+            </div>
+          </div>
+        </article>`;
+      }).join('');
+
+      const toggle = $('#project-toggle');
+      if (!toggle) return;
+      toggle.hidden = projects.length <= 3;
+      toggle.textContent = showAllProjects ? 'Show fewer projects' : `Show ${hiddenCount} more projects`;
+      toggle.setAttribute('aria-expanded', String(showAllProjects));
+    }
+
+    $('#project-toggle').addEventListener('click', () => {
+      showAllProjects = !showAllProjects;
+      renderProjects();
+    });
+
+    function setupPublications() {
+      const yearSelect = $('#pub-year');
+      const years = [...new Set(publications.map((pub) => pub.year))].sort((a, b) => Number(b) - Number(a));
+      yearSelect.innerHTML = '<option value="all">All years</option>' + years.map((year) => `<option value="${escapeHTML(year)}">${escapeHTML(year)}</option>`).join('');
+      ['input', 'change'].forEach((eventName) => {
+        $('#pub-search').addEventListener(eventName, renderPublications);
+        $('#pub-year').addEventListener(eventName, renderPublications);
+        $('#pub-sort').addEventListener(eventName, renderPublications);
+      });
+      $('#pub-clear').addEventListener('click', () => {
+        $('#pub-search').value = '';
+        $('#pub-year').value = 'all';
+        $('#pub-sort').value = 'year-desc';
+        visiblePubCount = DEFAULT_PUB_COUNT;
+        renderPublications();
+      });
+      $('#pub-show-more').addEventListener('click', () => {
+        const filtered = getFilteredPublications();
+        if (visiblePubCount >= filtered.length) visiblePubCount = DEFAULT_PUB_COUNT;
+        else visiblePubCount += DEFAULT_PUB_COUNT;
+        renderPublications();
+      });
+      renderPublications();
+    }
+
+    const DEFAULT_PUB_COUNT = 8;
+    let visiblePubCount = DEFAULT_PUB_COUNT;
+
+    function getFilteredPublications() {
+      const query = $('#pub-search').value.trim().toLowerCase();
+      const year = $('#pub-year').value;
+      const sort = $('#pub-sort').value;
+      let result = publications.filter((pub) => {
+        const haystack = `${pub.title} ${pub.journal} ${pub.year}`.toLowerCase();
+        const matchesQuery = !query || haystack.includes(query);
+        const matchesYear = year === 'all' || pub.year === year;
+        return matchesQuery && matchesYear;
+      });
+      result.sort((a, b) => {
+        if (sort === 'year-desc') return Number(b.year) - Number(a.year) || a.title.localeCompare(b.title);
+        if (sort === 'year-asc') return Number(a.year) - Number(b.year) || a.title.localeCompare(b.title);
+        if (sort === 'journal-asc') return a.journal.localeCompare(b.journal) || Number(b.year) - Number(a.year);
+        return a.title.localeCompare(b.title);
+      });
+      return result;
+    }
 
     function renderPublications() {
-      publicationList.innerHTML = '';
+      const filtered = getFilteredPublications();
+      const shown = filtered.slice(0, visiblePubCount);
+      $('#pub-count').textContent = `${filtered.length} publication${filtered.length === 1 ? '' : 's'} shown by current filters`;
+      $('#publication-list').innerHTML = shown.length ? shown.map((pub) => `
+        <article class="reveal card pub-card rounded-[1.5rem] p-5">
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <h3 class="text-lg font-black leading-snug tracking-tight text-slate-950">${escapeHTML(pub.title)}</h3>
+              <p class="mt-2 text-base font-medium text-slate-600">${escapeHTML(pub.journal)} · ${escapeHTML(pub.year)}</p>
+            </div>
+            <span class="inline-flex shrink-0 rounded-full bg-brand-50 px-3 py-1 text-xs font-black text-brand-700 ring-1 ring-brand-100">${escapeHTML(pub.year)}</span>
+          </div>
+          <div class="mt-4 flex items-center justify-between gap-3">
+            <span class="text-xs font-bold uppercase tracking-wide text-slate-400">Publication #${escapeHTML(pub.n)}</span>
+            ${pub.url ? `<a href="${escapeHTML(pub.url)}" target="_blank" rel="noopener" class="focus-ring rounded-full bg-white px-4 py-2 text-sm font-black text-brand-700 shadow-sm ring-1 ring-slate-200 hover:bg-brand-50">View DOI</a>` : ''}
+          </div>
+        </article>`).join('') : '<div class="rounded-[1.5rem] bg-white p-8 text-center font-bold text-slate-500 shadow-card ring-1 ring-slate-200">No publications match the current filters.</div>';
+      const btn = $('#pub-show-more');
+      btn.hidden = filtered.length <= DEFAULT_PUB_COUNT;
+      btn.textContent = visiblePubCount >= filtered.length ? 'Show fewer publications' : `Show ${Math.min(DEFAULT_PUB_COUNT, filtered.length - visiblePubCount)} more publications`;
+      setupReveal(true);
+    }
 
-      if (currentFilteredItems.length === 0) {
-        publicationList.innerHTML =
-          '<div class="text-center text-muted-text p-8">No publications match your current filters.</div>';
-        pubToggleBtn.style.display = 'none';
+    function setupNavigation() {
+      const header = $('#site-header');
+      const setHeaderHeight = () => document.documentElement.style.setProperty('--header-h', `${header.offsetHeight}px`);
+      setHeaderHeight();
+      window.addEventListener('resize', setHeaderHeight);
+
+      const progress = $('#progress');
+      const updateProgress = () => {
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.width = `${total > 0 ? (window.scrollY / total) * 100 : 0}%`;
+      };
+      window.addEventListener('scroll', updateProgress, { passive: true });
+      updateProgress();
+
+      const mobileMenu = $('#mobile-menu');
+      const openBtn = $('#menu-open');
+      const closeBtn = $('#menu-close');
+      const setMenu = (open) => {
+        mobileMenu.classList.toggle('open', open);
+        mobileMenu.setAttribute('aria-hidden', String(!open));
+        openBtn.setAttribute('aria-expanded', String(open));
+        document.body.style.overflow = open ? 'hidden' : '';
+      };
+      openBtn.addEventListener('click', () => setMenu(true));
+      closeBtn.addEventListener('click', () => setMenu(false));
+      mobileMenu.addEventListener('click', (event) => { if (event.target === mobileMenu) setMenu(false); });
+      $$('#mobile-menu a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
+
+      const navLinks = $$('.nav-link');
+      const sections = navLinks.map((link) => $(link.getAttribute('href'))).filter(Boolean);
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          navLinks.forEach((link) => link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`));
+        });
+      }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+      sections.forEach((section) => observer.observe(section));
+    }
+
+    function setupCounters() {
+      const counters = $$('.counter');
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          const target = Number(el.dataset.target || 0);
+          const start = performance.now();
+          const duration = 900;
+          function tick(now) {
+            const progress = Math.min((now - start) / duration, 1);
+            el.textContent = Math.floor(target * progress);
+            if (progress < 1) requestAnimationFrame(tick);
+            else el.textContent = target;
+          }
+          requestAnimationFrame(tick);
+          obs.unobserve(el);
+        });
+      }, { threshold: .5 });
+      counters.forEach((counter) => observer.observe(counter));
+    }
+
+    let revealObserver;
+    function setupReveal(includeExisting = false) {
+      if (!('IntersectionObserver' in window)) {
+        $$('.reveal').forEach((el) => el.classList.add('visible'));
         return;
       }
-
-      currentFilteredItems.forEach((item, index) => {
-        item.classList.remove('hidden');
-
-        if (!pubsExpanded && index >= VISIBLE_COUNT) {
-          item.classList.add('hidden');
-        }
-
-        publicationList.appendChild(item);
-      });
-
-      if (currentFilteredItems.length <= VISIBLE_COUNT) {
-        pubToggleBtn.style.display = 'none';
-      } else {
-        pubToggleBtn.style.display = '';
-        const remaining = currentFilteredItems.length - VISIBLE_COUNT;
-        pubToggleBtn.textContent = pubsExpanded
-          ? 'Show Less Publications'
-          : `Show ${remaining} more Publications`;
+      if (!revealObserver) {
+        revealObserver = new IntersectionObserver((entries, obs) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
+          });
+        }, { threshold: .1 });
       }
+      $$('.reveal').forEach((el) => {
+        if (includeExisting || !el.classList.contains('visible')) revealObserver.observe(el);
+      });
     }
 
-    function applyFiltersAndSort() {
-      const searchQuery = pubSearch.value.toLowerCase();
-      const sortValue = pubSort.value;
-      const filterYear = pubFilterYear.value;
-
-      let filteredItems = pubItems.filter(item => {
-        const title = item.querySelector('.pub-title').textContent.toLowerCase();
-        const journal = item.querySelector('.pub-journal').textContent.toLowerCase();
-        const year = item.getAttribute('data-year');
-
-        const matchesSearch =
-          title.includes(searchQuery) || journal.includes(searchQuery);
-        const matchesYear = !filterYear || year === filterYear;
-
-        return matchesSearch && matchesYear;
-      });
-
-      filteredItems.sort((a, b) => {
-        const yearA = parseInt(a.getAttribute('data-year'));
-        const yearB = parseInt(b.getAttribute('data-year'));
-
-        let yearComparison =
-          sortValue === 'year-desc' ? yearB - yearA : yearA - yearB;
-
-        if (yearComparison === 0) {
-          const titleA = a.querySelector('.pub-title').textContent;
-          const titleB = b.querySelector('.pub-title').textContent;
-          return titleA.localeCompare(titleB);
-        }
-
-        return yearComparison;
-      });
-
-      currentFilteredItems = filteredItems;
-      pubsExpanded = false; // reset to collapsed whenever filters change
-      renderPublications();
+    function setupBackToTop() {
+      const button = $('#back-to-top');
+      const toggle = () => button.classList.toggle('hidden', window.scrollY < 600);
+      window.addEventListener('scroll', toggle, { passive: true });
+      button.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+      toggle();
     }
-
-    pubSearch.addEventListener('input', applyFiltersAndSort);
-    pubSort.addEventListener('change', applyFiltersAndSort);
-    pubFilterYear.addEventListener('change', applyFiltersAndSort);
-
-    pubToggleBtn.addEventListener('click', () => {
-      pubsExpanded = !pubsExpanded;
-      renderPublications();
-    });
-
-    // --- MOBILE MENU SETUP ---
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-    const mobileMenuClose = document.getElementById('mobile-menu-close');
-    
-    mobileMenuToggle.addEventListener('click', () => {
-        mobileMenu.classList.add('open');
-    });
-
-    mobileMenuClose.addEventListener('click', () => {
-        mobileMenu.classList.remove('open');
-    });
-
-    mobileMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenu.classList.remove('open');
-        });
-    });
-
-    // --- COLLAPSIBLE CONTROL TOGGLE ---
-    const pubControlsBtn = document.getElementById('toggle-pub-controls-btn');
-    const pubControlsContent = document.getElementById('pub-controls');
-    const filterIcon = document.getElementById('filter-icon');
-
-    pubControlsBtn.addEventListener('click', () => {
-        const isOpen = pubControlsContent.classList.toggle('open');
-        filterIcon.classList.toggle('rotate-180', isOpen);
-    });
-    
-    // --- FADE-IN-ON-SCROLL SCRIPT (Updated with staggering - Suggestion 2.5) ---
-    document.addEventListener('DOMContentLoaded', () => {
-        const animatedItems = document.querySelectorAll('.fade-in');
-
-        if ('IntersectionObserver' in window) {
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const target = entry.target;
-                        target.classList.add('is-visible');
-
-                        // Stagger direct child cards
-                        const children = target.querySelectorAll('.card, .pub-item, .more-projects-item, .bg-white.rounded-xl, .relative.mb-4');
-                        children.forEach((child, index) => {
-                          child.style.transitionDelay = `${index * 60}ms`;
-                          // Ensure children are also set to fade-in if they aren't the main .fade-in element
-                          if (!child.classList.contains('fade-in')) {
-                             child.classList.add('is-visible'); // This assumes they have similar fade-in styles or are part of the parent's reveal
-                          }
-                        });
-
-                        observer.unobserve(target);
-                    }
-                });
-            }, { 
-                threshold: 0.1
-            });
-
-            animatedItems.forEach(item => {
-                observer.observe(item);
-            });
-        } else {
-            // Fallback for older browsers
-            animatedItems.forEach(item => {
-                item.classList.add('is-visible');
-            });
-        }
-    });
-
-    // --- NEW: COUNTER ANIMATION (Suggestion 2.1) ---
-    const counters = document.querySelectorAll('.counter');
-    const counterObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const el = entry.target;
-        const target = parseInt(el.getAttribute('data-target'), 10);
-        let current = 0;
-        const duration = 1000; // ms
-        const startTime = performance.now();
-
-        function update(now) {
-          const progress = Math.min((now - startTime) / duration, 1);
-          current = Math.floor(progress * target);
-          el.textContent = current;
-          if (progress < 1) requestAnimationFrame(update);
-          else el.textContent = target; // ensure final
-        }
-
-        requestAnimationFrame(update);
-        observer.unobserve(el);
-      });
-    }, { threshold: 0.5 });
-
-    counters.forEach(c => counterObserver.observe(c));
-
-    // --- NEW: BACK TO TOP BUTTON (Suggestion 2.4) ---
-    const backToTop = document.getElementById('back-to-top');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 400) {
-        backToTop.classList.remove('hidden');
-      } else {
-        backToTop.classList.add('hidden');
-      }
-    });
-    backToTop.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-
-    // --- INITIALIZATION ---
-
-    // Initialize Publications (filter + show more)
-    applyFiltersAndSort();
-
-    // Initialize the toggle functionality for Projects (4 hidden items)
-    setupToggleList('toggle-projects-btn', 'more-projects-item');
-    
   </script>
 </body>
 </html>
