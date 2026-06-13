@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cellular & Molecular Biosciences Research Laboratory — Cairo University</title>
   <meta name="description" content="Cellular & Molecular Biosciences Research Laboratory (CMBRL), Cairo University — cancer biology, biomarkers, breast cancer, translational research." />
-  <meta name="theme-color" content="#083344" />
+  <meta name="theme-color" content="#042f3f" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -228,6 +228,193 @@
     #opportunities article:first-child { border-top: 5px solid var(--mint-500); }
     #opportunities article:nth-child(2) { border-top: 5px solid var(--amber-500); }
 
+
+
+    /* ======================================================================
+       CMBRL visual enhancement layer
+       Biomedical palette + relevant scientific symbols, no external icon set.
+       ====================================================================== */
+    :root {
+      --lab-navy: #042f3f;
+      --lab-navy-2: #06283a;
+      --bio-teal: #0f766e;
+      --vesicle-cyan: #06b6d4;
+      --cell-mint: #22c55e;
+      --protein-indigo: #6366f1;
+      --dna-violet: #7c3aed;
+      --assay-amber: #f59e0b;
+      --cancer-rose: #e11d48;
+      --paper: #fbfeff;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at 8% 4%, rgba(6,182,212,.22), transparent 30rem),
+        radial-gradient(circle at 92% 12%, rgba(124,58,237,.12), transparent 27rem),
+        radial-gradient(circle at 20% 86%, rgba(34,197,94,.12), transparent 30rem),
+        radial-gradient(circle at 82% 78%, rgba(225,29,72,.075), transparent 28rem),
+        linear-gradient(180deg, #f8fdff 0%, #eefafa 45%, #f7fbf9 100%);
+    }
+
+    .bio-gradient {
+      background:
+        radial-gradient(circle at 84% 18%, rgba(255,255,255,.20), transparent 17rem),
+        radial-gradient(circle at 12% 82%, rgba(34,197,94,.18), transparent 16rem),
+        linear-gradient(135deg, #042f3f 0%, #07556b 42%, #0f766e 100%);
+    }
+
+    .science-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: .95;
+    }
+    .science-layer svg { position: absolute; color: rgba(255,255,255,.24); }
+    .science-layer .dna { right: -1.5rem; top: 3.25rem; width: 13rem; transform: rotate(10deg); }
+    .science-layer .vesicles { right: 4rem; bottom: 2.25rem; width: 11rem; color: rgba(165,243,252,.28); }
+    .science-layer .network { left: -2rem; bottom: 1rem; width: 16rem; color: rgba(209,250,229,.18); }
+
+    .science-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      border-radius: 999px;
+      padding: .52rem .78rem;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .01em;
+      color: rgba(255,255,255,.94);
+      background: rgba(255,255,255,.115);
+      border: 1px solid rgba(255,255,255,.24);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.18);
+      backdrop-filter: blur(10px);
+    }
+    .science-chip svg { width: 1rem; height: 1rem; }
+
+    .pathway-strip {
+      margin-top: 1.35rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: .55rem;
+      max-width: 44rem;
+    }
+    .pathway-step {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      border-radius: 1rem;
+      padding: .7rem .86rem;
+      font-size: .82rem;
+      font-weight: 900;
+      color: #ecfeff;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.20);
+    }
+    .pathway-step svg { width: 1.05rem; height: 1.05rem; }
+    .pathway-arrow { color: rgba(255,255,255,.58); font-weight: 900; }
+
+    .metric-card {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .metric-card::before {
+      content: '';
+      position: absolute;
+      right: -.75rem;
+      top: -.85rem;
+      height: 3.2rem;
+      width: 3.2rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      z-index: -1;
+    }
+
+    .card {
+      border-color: rgba(15,118,110,.18);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(246,253,252,.92));
+    }
+    .card:hover { border-color: rgba(6,182,212,.48); }
+
+    .section-kicker {
+      color: var(--bio-teal);
+    }
+
+    #research-grid .research-card:nth-child(1) { --accent: var(--cancer-rose); --accent-soft: #fff1f2; }
+    #research-grid .research-card:nth-child(2) { --accent: var(--protein-indigo); --accent-soft: #eef2ff; }
+    #research-grid .research-card:nth-child(3) { --accent: var(--vesicle-cyan); --accent-soft: #ecfeff; }
+
+    .research-icon {
+      width: 3.4rem;
+      height: 3.4rem;
+      color: var(--accent, var(--bio-teal));
+      border-radius: 1.25rem;
+    }
+    .research-icon svg { width: 1.8rem; height: 1.8rem; }
+
+    .icon-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.3rem;
+      height: 2.3rem;
+      border-radius: .95rem;
+      color: var(--bio-teal);
+      background: #ecfeff;
+      box-shadow: inset 0 0 0 1px rgba(6,182,212,.18);
+    }
+    .icon-badge svg { width: 1.2rem; height: 1.2rem; }
+
+    .project-entry .project-node {
+      background: linear-gradient(135deg, var(--bio-teal), var(--vesicle-cyan));
+      box-shadow: 0 0 0 5px rgba(6,182,212,.12), 0 12px 26px rgba(8,51,68,.14);
+    }
+
+    .pub-card::before, .project-card::before, .research-card::before {
+      content: '';
+      position: absolute;
+      inset: 0 auto auto 0;
+      height: 100%;
+      width: 4px;
+      background: linear-gradient(180deg, var(--accent, var(--bio-teal)), transparent);
+      opacity: .72;
+    }
+    #publications .pub-card { --accent: var(--protein-indigo); }
+    #projects .project-card { --accent: var(--bio-teal); }
+
+    .team-card img {
+      background: linear-gradient(135deg, #ffffff, #ecfeff);
+    }
+    .team-role-chip {
+      display: inline-flex;
+      margin-top: .6rem;
+      border-radius: 999px;
+      padding: .22rem .55rem;
+      font-size: .72rem;
+      font-weight: 800;
+      color: #0f766e;
+      background: #ecfdf5;
+      border: 1px solid rgba(16,185,129,.20);
+    }
+
+    .biomed-title-mark {
+      display: inline-flex;
+      vertical-align: middle;
+      margin-right: .55rem;
+      color: var(--vesicle-cyan);
+    }
+    .biomed-title-mark svg { width: 1.05em; height: 1.05em; }
+
+    @media (max-width: 760px) {
+      .science-layer .dna { right: -4rem; top: 1.5rem; width: 10rem; opacity: .55; }
+      .science-layer .vesicles { right: -1rem; bottom: 6.5rem; width: 8rem; opacity: .55; }
+      .pathway-strip { gap: .4rem; }
+      .pathway-step { font-size: .76rem; padding: .58rem .68rem; }
+    }
+
     @media (max-width: 640px) {
       body { font-size: 16px; line-height: 1.7; }
       .section-title { line-height: 1.16; }
@@ -300,21 +487,46 @@
 
   <main id="main">
     <section id="home" class="container-pro grid gap-8 pb-10 pt-10 lg:grid-cols-[1.12fr_.88fr] lg:pb-16 lg:pt-14">
-      <div class="reveal relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-brand-900 via-brand-700 to-cyan-500 p-6 text-white shadow-soft ring-1 ring-cyan-200/20 sm:p-8 lg:p-10">
+      <div class="reveal bio-gradient relative overflow-hidden rounded-[2rem] p-6 text-white shadow-soft ring-1 ring-cyan-200/20 sm:p-8 lg:p-10">
         <div class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
         <div class="absolute bottom-8 right-8 hidden h-36 w-36 rounded-full border border-white/20 lg:block"></div>
+        <div class="science-layer" aria-hidden="true">
+          <svg class="dna" viewBox="0 0 160 220" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round">
+            <path d="M42 18c76 42 76 142 0 184"/><path d="M118 18c-76 42-76 142 0 184"/>
+            <path d="M58 48h44M45 82h70M45 119h70M58 155h44"/>
+          </svg>
+          <svg class="vesicles" viewBox="0 0 220 160" fill="none" stroke="currentColor" stroke-width="6">
+            <circle cx="76" cy="86" r="42"/><circle cx="74" cy="85" r="16"/><circle cx="138" cy="56" r="24"/><circle cx="158" cy="107" r="32"/><circle cx="158" cy="107" r="10"/>
+          </svg>
+          <svg class="network" viewBox="0 0 240 180" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round">
+            <circle cx="46" cy="122" r="12" fill="currentColor"/><circle cx="105" cy="70" r="10" fill="currentColor"/><circle cx="172" cy="112" r="13" fill="currentColor"/><circle cx="210" cy="45" r="9" fill="currentColor"/><path d="M58 116l39-38M114 76l46 29M180 101l24-48"/>
+          </svg>
+        </div>
         <p class="section-kicker text-xs font-black uppercase text-cyan-100">Cairo University · Translational cancer biology</p>
         <h1 class="mt-5 max-w-3xl text-4xl font-black leading-tight tracking-[-.045em] sm:text-5xl lg:text-6xl">Cellular & Molecular Biosciences Research Laboratory</h1>
         <p class="mt-5 max-w-2xl text-lg leading-8 text-cyan-50">Advancing molecular and cellular insight into cancer biology, biomarker discovery, extracellular vesicles, proteoglycans, and clinically relevant translational research.</p>
+        <div class="mt-5 flex flex-wrap gap-2" aria-label="CMBRL scientific focus tags">
+          <span class="science-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3c6 3 6 15 0 18"/><path d="M18 3c-6 3-6 15 0 18"/><path d="M8 7h8M7 12h10M8 17h8"/></svg>DNA & RNA</span>
+          <span class="science-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="12" r="6"/><circle cx="16.5" cy="8" r="3"/><circle cx="17" cy="16" r="3.5"/></svg>Extracellular vesicles</span>
+          <span class="science-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M19.1 4.9l-2.8 2.8M7.7 16.3l-2.8 2.8"/></svg>Biomarkers</span>
+          <span class="science-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10M9 4v6l-4 7a3 3 0 0 0 2.6 4h8.8A3 3 0 0 0 19 17l-4-7V4"/><path d="M8 15h8"/></svg>Liquid biopsy</span>
+        </div>
+        <div class="pathway-strip" aria-label="Discovery workflow">
+          <span class="pathway-step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6v6l4 8a3 3 0 0 1-2.7 4H7.7A3 3 0 0 1 5 17l4-8V3Z"/><path d="M8 15h8"/></svg>Patient plasma</span>
+          <span class="pathway-arrow">→</span>
+          <span class="pathway-step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="12" r="5"/><circle cx="16" cy="8" r="3"/><circle cx="17" cy="16" r="3"/></svg>sEV cargo</span>
+          <span class="pathway-arrow">→</span>
+          <span class="pathway-step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>Clinical biomarkers</span>
+        </div>
         <div class="mt-7 flex flex-wrap gap-3">
           <a href="#team" class="focus-ring inline-flex items-center rounded-2xl bg-white px-5 py-3 text-sm font-black text-brand-800 shadow-card transition hover:-translate-y-0.5">Meet the team</a>
           <a href="#publications" class="focus-ring inline-flex items-center rounded-2xl border border-white/40 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-white/10">Browse publications</a>
         </div>
         <div class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4" aria-label="Lab key metrics">
-          <div class="rounded-2xl bg-white/10 p-4 ring-1 ring-white/20"><div class="text-3xl font-black counter" data-target="41">0</div><div class="mt-1 text-xs font-bold uppercase tracking-wide text-cyan-100">Publications</div></div>
-          <div class="rounded-2xl bg-white/10 p-4 ring-1 ring-white/20"><div class="text-3xl font-black counter" data-target="7">0</div><div class="mt-1 text-xs font-bold uppercase tracking-wide text-cyan-100">Funded projects</div></div>
-          <div class="rounded-2xl bg-white/10 p-4 ring-1 ring-white/20"><div class="text-3xl font-black counter" data-target="3">0</div><div class="mt-1 text-xs font-bold uppercase tracking-wide text-cyan-100">Partners</div></div>
-          <div class="rounded-2xl bg-white/10 p-4 ring-1 ring-white/20"><div class="text-3xl font-black counter" data-target="5">0</div><div class="mt-1 text-xs font-bold uppercase tracking-wide text-cyan-100">Team members</div></div>
+          <div class="metric-card rounded-2xl bg-white/10 p-4 ring-1 ring-white/20"><div class="text-3xl font-black counter" data-target="41">0</div><div class="mt-1 text-xs font-bold uppercase tracking-wide text-cyan-100">Publications</div></div>
+          <div class="metric-card rounded-2xl bg-white/10 p-4 ring-1 ring-white/20"><div class="text-3xl font-black counter" data-target="7">0</div><div class="mt-1 text-xs font-bold uppercase tracking-wide text-cyan-100">Funded projects</div></div>
+          <div class="metric-card rounded-2xl bg-white/10 p-4 ring-1 ring-white/20"><div class="text-3xl font-black counter" data-target="3">0</div><div class="mt-1 text-xs font-bold uppercase tracking-wide text-cyan-100">Partners</div></div>
+          <div class="metric-card rounded-2xl bg-white/10 p-4 ring-1 ring-white/20"><div class="text-3xl font-black counter" data-target="5">0</div><div class="mt-1 text-xs font-bold uppercase tracking-wide text-cyan-100">Team members</div></div>
         </div>
       </div>
 
@@ -333,7 +545,7 @@
         </article>
         <article class="card rounded-[2rem] p-6">
           <div class="flex items-start gap-4">
-            <div class="rounded-2xl bg-mint-100 p-3 text-brand-700" aria-hidden="true">✦</div>
+            <div class="icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M19.1 4.9l-2.8 2.8M7.7 16.3l-2.8 2.8"/></svg></div>
             <div>
               <h2 class="text-xl font-black tracking-tight">Latest highlights</h2>
               <ul class="mt-3 space-y-3 text-sm leading-6 text-slate-600">
@@ -364,7 +576,7 @@
       <div class="grid gap-6 lg:grid-cols-[.9fr_1.1fr]">
         <div class="reveal">
           <p class="section-kicker text-xs font-black uppercase text-brand-700">About the lab</p>
-          <h2 class="section-title mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">Molecular insight with clinical direction.</h2>
+          <h2 class="section-title mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl"><span class="biomed-title-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 3c5.5 3.2 5.5 14.8 0 18"/><path d="M17 3c-5.5 3.2-5.5 14.8 0 18"/><path d="M8.5 7h7M7.5 12h9M8.5 17h7"/></svg></span>Molecular insight with clinical direction.</h2>
           <p class="mt-4 text-base leading-8 text-slate-600">Founded in 2019 at the Department of Zoology, Faculty of Science, Cairo University, CMBRL focuses on mechanistic cancer biology and biomarker-oriented translational research.</p>
         </div>
         <div class="reveal card rounded-[2rem] p-6 sm:p-8">
@@ -399,7 +611,7 @@
       <div class="reveal flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
           <p class="section-kicker text-xs font-black uppercase text-brand-700">Research areas</p>
-          <h2 class="section-title mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">Three connected discovery tracks.</h2>
+          <h2 class="section-title mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl"><span class="biomed-title-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9.5" cy="12.5" r="5.5"/><circle cx="16.5" cy="8" r="3"/><circle cx="17" cy="16" r="3.5"/></svg></span>Three connected discovery tracks.</h2>
         </div>
         <p class="max-w-xl text-sm leading-7 text-slate-600">From molecular mechanisms to patient-relevant biomarkers, the lab connects cellular biology, extracellular matrix signaling, and clinical translation.</p>
       </div>
@@ -410,7 +622,7 @@
       <div class="reveal flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
           <p class="section-kicker text-xs font-black uppercase text-brand-700">Projects & collaborations</p>
-          <h2 class="section-title mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">Funded research timeline.</h2>
+          <h2 class="section-title mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl"><span class="biomed-title-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h16M6 8v10M10 8v10M14 8v10M18 8v10M3 20h18"/><path d="M12 3 4 8h16l-8-5Z"/></svg></span>Funded research timeline.</h2>
         </div>
         <button id="project-toggle" type="button" aria-expanded="false" class="focus-ring rounded-2xl bg-white px-5 py-3 text-sm font-black text-brand-700 shadow-card ring-1 ring-slate-200 hover:bg-brand-50">Show 4 more projects</button>
       </div>
@@ -437,7 +649,7 @@
         <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p class="section-kicker text-xs font-black uppercase text-cyan-200">Publications</p>
-            <h2 class="section-title mt-3 text-3xl font-black tracking-tight sm:text-4xl">Searchable research output.</h2>
+            <h2 class="section-title mt-3 text-3xl font-black tracking-tight sm:text-4xl"><span class="biomed-title-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 4h9l3 3v13H6z"/><path d="M15 4v4h4"/><path d="M8.5 12h7M8.5 16h5"/></svg></span>Searchable research output.</h2>
             <p class="mt-3 max-w-2xl text-sm leading-7 text-slate-300">Filter by year, journal, title, or keyword. The list is generated from structured data, making it easier to maintain than repeated static cards.</p>
           </div>
           <div class="grid grid-cols-2 gap-3 text-center sm:grid-cols-3">
@@ -544,7 +756,7 @@
     const publications = [{"n": 1, "year": "2025", "title": "Glypican3 and serglycin as potential biomarkers involved in the pathogenesis of ovarian endometriosis", "journal": "Tissue and Cell", "url": "https://doi.org/10.1016/j.tice.2025.102867"}, {"n": 2, "year": "2025", "title": "Designing and fabrication of BIRC5-mRNA-based biosensor for early breast cancer diagnosis using a nanostructured (CeO₂-Ru@AuNPs-CNTs)-lab-on-chip", "journal": "Biochemical Engineering Journal", "url": "https://doi.org/10.1016/j.bej.2025.109754"}, {"n": 3, "year": "2025", "title": "Cicer arietinum extract as antitumor and protective agent against Ehrlich solid carcinoma-bearing mice", "journal": "BMC Complementary Medicine and Therapies", "url": "https://doi.org/10.1186/s12906-025-05061-z"}, {"n": 4, "year": "2025", "title": "Liposomal delivery of Allolobophora caliginosa coelomic fluid attenuates myocardial infarction by suppressing oxidative damage, inflammation, and apoptosis", "journal": "Applied Biochemistry and Biotechnology", "url": "https://doi.org/10.1007/s12010-025-05340-y"}, {"n": 5, "year": "2025", "title": "Chrysin-loaded PLGA nanoparticles alleviate the implantation of endometriotic lesions via attenuation of peritoneal inflammation and downregulating NF-κB activation-driven expression of angiogenic factors", "journal": "Journal of Drug Delivery Science and Technology", "url": "https://doi.org/10.1016/j.jddst.2025.106984"}, {"n": 6, "year": "2025", "title": "SDC2 and FN as cargo proteins in circulating extracellular vesicles in obese breast cancer patients with lymph node metastasis", "journal": "Scientific Reports", "url": "https://doi.org/10.1038/s41598-025-17638-2"}, {"n": 7, "year": "2025", "title": "Calothrixin B by docking JAK2 is a potential therapeutic inhibitor for pancreatic ductal adenocarcinoma", "journal": "Journal of Pharmacy and Pharmacology", "url": "https://doi.org/10.1093/jpp/rgae149"}, {"n": 8, "year": "2025", "title": "The clinical potential of PDL-1 pathway and some related micro-RNAs as promising diagnostic markers for breast cancer", "journal": "Molecular Medicine", "url": "https://doi.org/10.1186/s10020-025-01137-1"}, {"n": 9, "year": "2025", "title": "EXT1 as an independent prognostic biomarker in breast cancer: Its correlation with immune infiltration and clinicopathological parameters", "journal": "Immuno.", "url": "https://doi.org/10.3390/immuno5010001"}, {"n": 10, "year": "2025", "title": "Integrative multi-omics analysis of autism spectrum disorder reveals unique microbial macromolecules interactions", "journal": "Journal of Advanced Research", "url": "https://doi.org/10.1016/j.jare.2025.01.036"}, {"n": 11, "year": "2024", "title": "Curcumin, piperine and taurine combination enhances the efficacy of transarterial chemoembolization therapy in patients with intermediate stage hepatocellular carcinoma: A pilot study", "journal": "Asian Pacific Journal of Cancer Prevention", "url": "https://doi.org/10.31557/APJCP.2024.25.5.1589"}, {"n": 12, "year": "2024", "title": "Compartmental syndecan-1 (CD138) expression as a novel prognostic marker in triple-negative metaplastic breast cancer", "journal": "Pathology Research and Practice", "url": "https://doi.org/10.1016/j.prp.2023.154994"}, {"n": 13, "year": "2023", "title": "Tumor suppressor miR-218 directly targets epidermal growth factor receptor (EGFR) expression in triple-negative breast cancer, sensitizing cells to irradiation", "journal": "Journal of Cancer Research and Clinical Oncology", "url": "https://doi.org/10.1007/s00432-023-04750-x"}, {"n": 14, "year": "2023", "title": "Anticancer activity of new bis-(3-(thiophen-2-yl)-1H-pyrazol-4-yl)chalcones: Synthesis, in silico, and in vitro studies", "journal": "Polycyclic Aromatic Compounds", "url": "https://doi.org/10.1080/10406638.2022.2046616"}, {"n": 15, "year": "2023", "title": "Cytotoxic activity, apoptosis induction and cell cycle arrest in human breast cancer (MCF7) cells by a novel fluorinated tetrahydro-[1,2,4]triazolo[3,4-a]isoquinolin chalcone", "journal": "Polycyclic Aromatic Compounds", "url": "https://doi.org/10.1080/10406638.2021.2014535"}, {"n": 16, "year": "2023", "title": "Revisiting the syndecans: Master signaling regulators with prognostic and targetable therapeutic values in breast carcinoma", "journal": "Cancers", "url": "https://doi.org/10.3390/cancers15061794"}, {"n": 17, "year": "2023", "title": "Chalcones: Promising therapeutic agents targeting key players and signaling pathways regulating the hallmarks of cancer", "journal": "Chemico-Biological Interactions", "url": "https://doi.org/10.1016/j.cbi.2022.110297"}, {"n": 18, "year": "2023", "title": "Yttrium oxide nanoparticles induce cytotoxicity, genotoxicity, apoptosis, and ferroptosis in the human triple-negative breast cancer MDA-MB-231 cells", "journal": "BMC Cancer", "url": "https://doi.org/10.1186/s12885-023-11649-w"}, {"n": 19, "year": "2023", "title": "Editorial: Cancer stem cells as attractive targets for breast cancer therapy", "journal": "Frontiers in Oncology", "url": "https://doi.org/10.3389/fonc.2023.1151742"}, {"n": 20, "year": "2022", "title": "Synthesis and anticancer activities of novel bis-chalcones incorporating the 1,3-diphenyl-1H-pyrazole moiety: In silico and in vitro studies", "journal": "Letters in Drug Design and Discovery", "url": "https://doi.org/10.2174/1570180819666220301151631"}, {"n": 21, "year": "2022", "title": "Role of adipose tissue-derived cytokines in the progression of inflammatory breast cancer in patients with obesity", "journal": "Lipids in Health and Disease", "url": "https://doi.org/10.1186/s12944-022-01678-y"}, {"n": 22, "year": "2022", "title": "Differential impact of membrane-bound and soluble forms of the prognostic marker syndecan-1 on the invasiveness, migration, apoptosis, and proliferation of cervical cancer cells", "journal": "Frontiers in Oncology", "url": "https://doi.org/10.3389/fonc.2022.803899"}, {"n": 23, "year": "2022", "title": "[1,2,4]Triazolo[3,4-a]isoquinoline chalcone derivative exhibits anticancer activity via induction of oxidative stress, DNA damage, and apoptosis in Ehrlich solid carcinoma-bearing mice", "journal": "Naunyn-Schmiedeberg’s Archives of Pharmacology", "url": "https://doi.org/10.1007/s00210-022-02269-5"}, {"n": 24, "year": "2021", "title": "EGFR-dependent extracellular matrix protein interactions might light a candle in cell behavior of non-small cell lung cancer", "journal": "Frontiers in Oncology", "url": "https://doi.org/10.3389/fonc.2021.766659"}, {"n": 25, "year": "2021", "title": "Syndecan-1 promotes angiogenesis in triple-negative breast cancer through the prognostically relevant tissue factor pathway and additional angiogenic routes", "journal": "Cancers", "url": "https://doi.org/10.3390/cancers13102318"}, {"n": 26, "year": "2021", "title": "Impact of type 2 diabetes mellitus on the immunoregulatory characteristics of adipose tissue-derived mesenchymal stem cells", "journal": "International Journal of Biochemistry and Cell Biology", "url": "https://doi.org/10.1016/j.biocel.2021.106072"}, {"n": 27, "year": "2021", "title": "Small extracellular vesicle-encapsulated miR-181b-5p, miR-222-3p and let-7a-5p: Next generation plasma biopsy-based diagnostic biomarkers for inflammatory breast cancer", "journal": "PLoS ONE", "url": "https://doi.org/10.1371/journal.pone.0250642"}, {"n": 28, "year": "2021", "title": "The heparan sulfate proteoglycan syndecan-1 regulates colon cancer stem cell function via a focal adhesion kinase–Wnt signaling axis", "journal": "FEBS Journal", "url": "https://doi.org/10.1111/febs.15356"}, {"n": 29, "year": "2021", "title": "Cell behavior of non-small cell lung cancer is at EGFR and microRNAs hands", "journal": "International Journal of Molecular Sciences", "url": "https://doi.org/10.3390/ijms222212496"}, {"n": 30, "year": "2021", "title": "Role of syndecan-1 in cancer stem cells.", "journal": "Biology of Extracellular Matrix", "url": "https://doi.org/10.1007/978-3-030-73453-4_12"}, {"n": 31, "year": "2020", "title": "HS2ST1-dependent signaling pathways determine breast cancer cell viability, matrix interactions, and invasive behavior", "journal": "Cancer Science", "url": "https://doi.org/10.1111/cas.14539"}, {"n": 32, "year": "2020", "title": "Infrared microspectroscopy and imaging analysis of inflammatory and non-inflammatory breast cancer cells and their GAG secretome", "journal": "Molecules", "url": "https://doi.org/10.3390/molecules25184300"}, {"n": 33, "year": "2020", "title": "Induction of heparanase via IL-10 correlates with a high infiltration of CD163⁺ M2-type tumor-associated macrophages in inflammatory breast carcinomas", "journal": "Matrix Biology Plus", "url": "https://doi.org/10.1016/j.mbplus.2020.100030"}, {"n": 34, "year": "2020", "title": "Knockdown of Musashi RNA binding proteins decreases radioresistance but enhances cell motility and invasion in triple-negative breast cancer", "journal": "International Journal of Molecular Sciences", "url": "https://doi.org/10.3390/ijms21062169"}, {"n": 35, "year": "2020", "title": "Inflammatory breast carcinoma: Elevated microRNA miR-181b-5p and reduced miR-200b-3p, miR-200c-3p, and miR-203a-3p expression as potential biomarkers with diagnostic value", "journal": "Biomolecules", "url": "https://doi.org/10.3390/biom10071059"}, {"n": 36, "year": "2019", "title": "Inflammatory breast cancer: Activation of the aryl hydrocarbon receptor and its target CYP1B1 correlates closely with Wnt5a/b–β-catenin signalling, the stem cell phenotype and disease progression", "journal": "Journal of Advanced Research", "url": "https://doi.org/10.1016/j.jare.2018.11.006"}, {"n": 37, "year": "2019", "title": "Anti-proliferative effect of chitosan nanoparticles (extracted from crayfish Procambarus clarkii, Crustacea: Cambaridae) against MDA-MB-231 and SK-BR-3 human breast cancer cell lines", "journal": "International Journal of Biological Macromolecules", "url": "https://doi.org/10.1016/j.ijbiomac.2018.12.151"}, {"n": 38, "year": "2019", "title": "The immunomodulatory role of tumor syndecan-1 (CD138) on ex vivo tumor microenvironmental CD4⁺ T cell polarization in inflammatory and non-inflammatory breast cancer patients", "journal": "PLoS ONE", "url": "https://doi.org/10.1371/journal.pone.0217550"}, {"n": 39, "year": "2019", "title": "Tumor microenvironmental plasmacytoid dendritic cells contribute to breast cancer lymph node metastasis via CXCR4/SDF-1 axis", "journal": "Breast Cancer Research and Treatment", "url": "https://doi.org/10.1007/s10549-019-05129-8"}, {"n": 40, "year": "2019", "title": "The regulatory role of syndecan-1 on human miR-222-3p expression in breast cancer cell lines", "journal": "Egyptian Journal of Histology", "url": "https://doi.org/10.21608/ejh.2019.6670.1054"}, {"n": 41, "year": "2019", "title": "Aptasensor for quantifying pancreatic polypeptide.", "journal": "ACS Omega", "url": "https://doi.org/10.1021/acsomega.8b03131"}];
     const projects = [{"title": "Proteomic profiling of exosomes: Discovery of novel diagnostic biomarkers for lymph node metastasis in breast cancer", "period": "2022–2025", "pi": "Dr. Sherif A. Ibrahim", "funding": "ASRT"}, {"title": "Extracellular vesicle-derived proteoglycans as non-invasive liquid biopsy-based cancer biomarkers: Towards novel breast cancer screening", "period": "2022–2025", "pi": "Dr. Hebatallah Hassan", "coPi": "Dr. Sherif A. Ibrahim", "funding": "STDF"}, {"title": "Syndecan-1 as a novel therapeutic target for putative stem cells in inflammatory breast cancer", "period": "2014–2017", "pi": "Dr. Sherif A. Ibrahim", "funding": "STDF"}, {"title": "MicroRNA signatures as potential biomarkers and therapeutic targets in inflammatory and non-inflammatory breast cancer Egyptian patients", "period": "2016–2017", "pi": "Dr. Sherif A. Ibrahim", "funding": "STDF"}, {"title": "Matrix glycans as multifunctional pathogenesis factors and therapeutic targets in cancer", "period": "2015–2019", "pi": "Prof. Martin Götte", "funding": "EU H2020-MSCA-RISE"}, {"title": "Syndecan-1 as a modulator of exosome-mediated microRNA function in inflammatory breast cancer", "period": "2015", "pi": "Prof. Martin Götte", "funding": "DAAD"}, {"title": "Syndecan-1 in inflammation", "period": "2013–2014", "pi": "Prof. Martin Götte", "funding": "DAAD"}];
     const team = [{"name": "Prof. Dr. Sherif Abdelaziz Ibrahim", "role": "Professor of Cancer Cell Biology • Head & Founder", "image": "sherif-ibrahim.jpg", "alt": "Headshot of Prof. Dr. Sherif Abdelaziz Ibrahim"}, {"name": "Dr. Hebatallah Hassan", "role": "Associate Professor • Co-PI", "image": "logo.png.png", "alt": "Headshot of Dr. Hebatallah Hassan"}, {"name": "Mr. Amr Ahmed WalyEldden", "role": "PhD Student • Senior Researcher", "image": "amr-walyeldden.jpg.jpg", "alt": "Headshot of Mr. Amr Ahmed WalyEldden"}, {"name": "Ms. Liali Yousef Talat", "role": "PhD Student • Senior Researcher", "image": "liali-yousef-talat.jpg.jpeg", "alt": "Headshot of Ms. Liali Yousef Talat"}, {"name": "Mrs. Maysaa Maher", "role": "MSc Student • Junior Researcher", "image": "logo.png.png", "alt": "Headshot of Mrs. Maysaa Maher"}];
-    const researchAreas = [{"label": "Cancer Research", "title": "Biomarker Discovery & Therapeutic Targeting", "text": "We focus on identifying molecular biomarkers for early detection and uncovering novel therapeutic targets that drive tumor progression, with emphasis on inflammatory breast cancer."}, {"label": "Cell Biology", "title": "Signaling & Microenvironment", "text": "Our work explores cellular signaling pathways, extracellular matrix interactions, and mechanisms of cell–cell communication shaping cancer progression and metastasis."}, {"label": "Human Biology", "title": "Clinical Translation", "text": "We link laboratory discoveries to clinical outcomes, integrating molecular and proteomic insights to improve patient diagnosis, treatment, and prognosis."}];
+    const researchAreas = [{"label": "Cancer Biology", "title": "Breast Cancer Biomarker Discovery", "text": "We focus on identifying molecular biomarkers for early detection and uncovering novel therapeutic targets that drive tumor progression, with emphasis on inflammatory breast cancer."}, {"label": "Cellular Signaling", "title": "Tumor Microenvironment & Matrix Signaling", "text": "Our work explores cellular signaling pathways, extracellular matrix interactions, and mechanisms of cell–cell communication shaping cancer progression and metastasis."}, {"label": "Translational Biology", "title": "Liquid Biopsy & Clinical Translation", "text": "We link laboratory discoveries to clinical outcomes, integrating molecular and proteomic insights to improve patient diagnosis, treatment, and prognosis."}];
 
     const $ = (selector, root = document) => root.querySelector(selector);
     const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
@@ -552,6 +764,22 @@
     const escapeHTML = (value) => String(value ?? '').replace(/[&<>'"]/g, (char) => ({
       '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
     }[char]));
+
+    function scienceIcon(name) {
+      const icons = {
+        dna: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3c5.5 3.2 5.5 14.8 0 18"/><path d="M17 3c-5.5 3.2-5.5 14.8 0 18"/><path d="M8.5 7h7M7.5 12h9M8.5 17h7"/></svg>`,
+        cancer: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.4"/><path d="M12 2.5v4M12 17.5v4M2.5 12h4M17.5 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/></svg>`,
+        signaling: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="17" r="2.5"/><circle cx="12" cy="7" r="2.5"/><circle cx="19" cy="17" r="2.5"/><path d="M7 15l3.5-6M13.5 9l3.5 6M7.8 17h8.4"/></svg>`,
+        vesicle: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9.5" cy="12.5" r="5.5"/><circle cx="16.5" cy="8" r="3"/><circle cx="17" cy="16" r="3.5"/><circle cx="9.5" cy="12.5" r="1.4"/></svg>`,
+        biopsy: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8M10 3v6l-5 8a3 3 0 0 0 2.6 4h8.8A3 3 0 0 0 19 17l-5-8V3"/><path d="M8 15h8"/></svg>`,
+        protein: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="8" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="9" cy="15" r="2"/><circle cx="15" cy="18" r="2"/><path d="M8 7l2-1M14 6l2 1M7 10l1 3M17 10l-1 6M11 16l2 1"/></svg>`,
+        funding: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h16M6 8v10M10 8v10M14 8v10M18 8v10M3 20h18"/><path d="M12 3 4 8h16l-8-5Z"/></svg>`,
+        publication: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9l3 3v13H6z"/><path d="M15 4v4h4"/><path d="M8.5 12h7M8.5 16h5"/></svg>`,
+        team: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3"/><path d="M5 21a7 7 0 0 1 14 0"/></svg>`
+      };
+      return icons[name] || icons.dna;
+    }
+
 
     document.addEventListener('DOMContentLoaded', () => {
       $('#year').textContent = new Date().getFullYear();
@@ -566,10 +794,10 @@
     });
 
     function renderResearchAreas() {
-      const icons = ['🧬', '🔬', '🧪'];
+      const icons = ['cancer', 'signaling', 'vesicle'];
       $('#research-grid').innerHTML = researchAreas.map((area, index) => `
         <article class="reveal card research-card rounded-[2rem] p-6">
-          <div class="research-icon flex h-12 w-12 items-center justify-center rounded-2xl text-2xl" aria-hidden="true">${icons[index] || '✦'}</div>
+          <div class="research-icon flex items-center justify-center" aria-hidden="true">${scienceIcon(icons[index] || 'dna')}</div>
           <p class="mt-5 text-xs font-black uppercase tracking-[.16em] text-brand-700">${escapeHTML(area.label)}</p>
           <h3 class="mt-2 text-xl font-black tracking-tight text-slate-950">${escapeHTML(area.title)}</h3>
           <p class="mt-3 text-sm leading-7 text-slate-600">${escapeHTML(area.text)}</p>
@@ -582,8 +810,10 @@
           <div class="flex items-center gap-4">
             <img src="${escapeHTML(member.image)}" alt="${escapeHTML(member.alt || member.name)}" loading="lazy" onerror="this.src='logo.png.png'" class="h-20 w-20 shrink-0 rounded-3xl border border-brand-100 bg-white object-cover p-1 shadow-sm transition group-hover:scale-[1.03]" />
             <div>
+              <div class="mb-2 inline-flex items-center gap-2 text-xs font-black uppercase tracking-[.12em] text-brand-700"><span class="icon-badge !h-7 !w-7 !rounded-xl">${scienceIcon('team')}</span> Research member</div>
               <h3 class="text-lg font-black leading-tight tracking-tight text-slate-950">${escapeHTML(member.name)}</h3>
               <p class="mt-2 text-base font-medium leading-7 text-slate-600">${escapeHTML(member.role)}</p>
+              <span class="team-role-chip">CMBRL · Cairo University</span>
             </div>
           </div>
         </article>`).join('');
@@ -602,18 +832,18 @@
 
         return `
         <article class="relative project-entry">
-          <div class="absolute -left-[1.38rem] top-7 h-4 w-4 rounded-full border-4 border-white bg-brand-600 shadow-card sm:-left-[1.62rem]"></div>
+          <div class="project-node absolute -left-[1.38rem] top-7 h-4 w-4 rounded-full border-4 border-white sm:-left-[1.62rem]"></div>
           <div class="card project-card rounded-[1.5rem] p-5">
             <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
               <div>
-                <div class="text-xs font-black uppercase tracking-[.14em] text-brand-700">Project ${index + 1}</div>
+                <div class="inline-flex items-center gap-2 text-xs font-black uppercase tracking-[.14em] text-brand-700"><span class="icon-badge !h-8 !w-8 !rounded-xl">${scienceIcon(index < 2 ? 'vesicle' : 'funding')}</span> Project ${index + 1}</div>
                 <h3 class="mt-2 text-lg font-black leading-snug tracking-tight text-slate-950">${escapeHTML(project.title)}</h3>
               </div>
               <span class="inline-flex shrink-0 rounded-full bg-brand-50 px-3 py-1 text-xs font-black text-brand-700 ring-1 ring-brand-100">${escapeHTML(project.period)}</span>
             </div>
             <div class="mt-4 grid gap-2 text-base font-medium leading-7 text-slate-600 sm:grid-cols-2">
               <p>${piLine}</p>
-              <p><span class="font-bold text-slate-700">Funding:</span> ${escapeHTML(project.funding)}</p>
+              <p class="inline-flex items-start gap-2"><span class="mt-1 text-brand-700">${scienceIcon('funding')}</span><span><span class="font-bold text-slate-700">Funding:</span> ${escapeHTML(project.funding)}</span></p>
             </div>
           </div>
         </article>`;
@@ -686,6 +916,7 @@
         <article class="reveal card pub-card rounded-[1.5rem] p-5">
           <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
             <div>
+              <div class="mb-3 inline-flex items-center gap-2 text-xs font-black uppercase tracking-[.14em] text-brand-700"><span class="icon-badge !h-8 !w-8 !rounded-xl">${scienceIcon('publication')}</span> Peer-reviewed output</div>
               <h3 class="text-lg font-black leading-snug tracking-tight text-slate-950">${escapeHTML(pub.title)}</h3>
               <p class="mt-2 text-base font-medium text-slate-600">${escapeHTML(pub.journal)} · ${escapeHTML(pub.year)}</p>
             </div>
